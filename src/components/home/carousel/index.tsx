@@ -14,7 +14,7 @@ export default function ServicesCarousel() {
         <Title>Nossos serviços</Title>
       </div>
 
-      <Carousel>
+      <Carousel >
         <CarouselContent>
           {carousel.map((service, index) => {
             return (

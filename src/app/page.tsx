@@ -1,6 +1,8 @@
 import Hero from "@/components/home/hero";
 import ServicesCarousel from "@/components/home/carousel";
 import MakeBooking from "@/components/home/make-booking";
+import Regions from "@/components/home/regions";
+import ClientsRating from "@/components/home/clients-rating";
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <Hero />
       <ServicesCarousel />
       <MakeBooking />
+      <ClientsRating />
+      <Regions />
     </main>
   );
 }
