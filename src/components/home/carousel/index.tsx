@@ -7,7 +7,7 @@ import CarouselItemContent from "./carousel-item-content";
 import { carousel } from "@/consts/carousel";  
 import Title from "@/components/ui/title";
 
-export function OurServices() {
+export default function ServicesCarousel() {
   return (
     <section className="flex flex-col items-center gap-10" id="services">
       <div>

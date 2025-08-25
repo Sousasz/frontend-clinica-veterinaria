@@ -1,12 +1,13 @@
-// import { MedicinesModal } from "../../../modals/medicines/index";
+import { JSX } from "react";
 import NoInjectablesMedicineModal from "@/app/modals/noinjectables-medicines";
-// import { VacinesModal } from "../../../modals/vacines/index";
-import Image from "next/image";
-
+import InjectablesMedicineModal from "@/app/modals/injectables-medicines";
+import VaccinesModal from "@/app/modals/vaccines";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
+import Image, { StaticImageData } from "next/image";
+
 type Service = {
-  imgUrl: string;
+  imgUrl: StaticImageData;
   type: string;
 };
 
@@ -16,11 +17,13 @@ type CarouselItemContentProps = {
 
 const modalComponents: Record<string, JSX.Element> = {
   Medicação: <NoInjectablesMedicineModal />,
-  "Medicação Injetável": <MedicinesInjectablesModal />,
-  Vacinação: <VacinesModal />,
+  "Medicação Injetável": <InjectablesMedicineModal />,
+  Vacinação: <VaccinesModal />,
 };
 
-export default function CarouselItemContent({ service }: CarouselItemContentProps) {
+export default function CarouselItemContent({
+  service,
+}: CarouselItemContentProps) {
   const ModalComponent = modalComponents[service.type] || null;
 
   return (
@@ -31,7 +34,6 @@ export default function CarouselItemContent({ service }: CarouselItemContentProp
             <button className="cursor-pointer">
               <div className="flex justify-center items-center">
                 <Image
-                  className=""
                   src={service.imgUrl}
                   alt={`Imagem do serviço ${service.type}`}
                 />

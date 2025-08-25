@@ -1,4 +1,4 @@
-export default function List() {
+export default function MedicinesFirstList() {
   return (
     <ul className="flex flex-col gap-3">
       <div className="flex flex-col gap-1">

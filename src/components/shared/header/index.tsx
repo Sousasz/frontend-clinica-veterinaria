@@ -25,23 +25,23 @@ export default function Header() {
           <nav className="hidden lg:block">
             <ul className="flex gap-10">
               <li>
-                <a href="#home">Home</a>
+                <Link href="/#home">Home</Link>
               </li>
 
               <li>
-                <a href="#services">Nossos serviços</a>
+                <Link href="/#services">Nossos serviços</Link>
               </li>
 
               <li>
-                <a href="#booking">Agendamento</a>
+                <Link href="/#booking">Agendamento</Link>
               </li>
 
               <li>
-                <a href="#rating">Nossas avaliações</a>
+                <Link href="/#rating">Nossas avaliações</Link>
               </li>
 
               <li>
-                <a href="#areas">Áreas atendidas</a>
+                <Link href="/#areas">Áreas atendidas</Link>
               </li>
 
               <li>
