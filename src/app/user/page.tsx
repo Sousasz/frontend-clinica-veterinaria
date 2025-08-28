@@ -1,8 +1,8 @@
 import Title from "@/components/ui/title";
-import EditUser from "../modals/edit-user";
-import EditPet from "../modals/edit-pet";
+import EditUser from "@/modals/edit-user";
+import EditPet from "@/modals/edit-pet";
 import ActionButton from "@/components/shared/action-button";
-import UserConsults from "@/components/users/user-consults";
+import UserConsults from "@/app/user/user-consults";
 
 export const metadata = {
   title: "Usuário | Joyce Clínica Veterinária"

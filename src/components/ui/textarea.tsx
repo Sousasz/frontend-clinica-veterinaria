@@ -1,6 +1,4 @@
-type TextAreaProps = {
-  className?: string;
-};
+type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export default function TextArea({ className, ...rest }: TextAreaProps) {
   return (

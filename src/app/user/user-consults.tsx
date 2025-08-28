@@ -2,7 +2,7 @@ import FormData from "@/components/shared/form-data";
 import { consults } from "@/consts/consults";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import RateConsultModal from "@/app/modals/rate-consult";
+import RateConsultModal from "@/modals/rate-consult";
 
 export default function UserConsults() {
   return (
