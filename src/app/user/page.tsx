@@ -2,12 +2,16 @@ import Title from "@/components/ui/title";
 import EditUser from "../modals/edit-user";
 import EditPet from "../modals/edit-pet";
 import ActionButton from "@/components/shared/action-button";
-import UserConsults from "./user-consults";
+import UserConsults from "@/components/users/user-consults";
+
+export const metadata = {
+  title: "Usuário | Joyce Clínica Veterinária"
+}
 
 export default function Users() {
   return (
     <section className="w-full h-full font-poppins">
-      <div className="flex flex-col max-w-screen mx-20 my-10 gap-14">
+      <div className="flex flex-col max-w-screen mx-14 my-10 gap-14">
         <div className="flex flex-col gap-10">
           <Title>Editar informações</Title>
 

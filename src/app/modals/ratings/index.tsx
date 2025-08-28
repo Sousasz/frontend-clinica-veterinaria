@@ -1,8 +1,17 @@
-import { DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+'use client'
+
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ratings } from "@/consts/ratings";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
+
 import avatarImage from "../../../../public/avatar.jpg";
 import Title from "@/components/ui/title";
-import { ratings } from "@/consts/ratings";
-import RatingStar from "@/components/shared/rating-star";
+import Rating from "react-rating";
 import Image from "next/image";
 
 export default function RatingsModal() {
@@ -27,7 +36,14 @@ export default function RatingsModal() {
                   />
 
                   <div className="flex flex-col gap-2">
-                    <RatingStar />
+                    <Rating
+                      initialRating={rating.stars}
+                      emptySymbol={
+                        <FaRegStar className="size-5 text-gray-500" />
+                      }
+                      fullSymbol={<FaStar className="size-5 text-amber-300" />}
+                      readonly
+                    />
                     <p>{rating.comment}</p>
                   </div>
                 </div>

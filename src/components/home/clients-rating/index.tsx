@@ -1,7 +1,11 @@
+'use client'
+
 import avatarImage from "../../../../public/avatar.jpg";
-import RatingStar from "@/components/shared/rating-star";
+import Rating from "react-rating";
 import Touchable from "@/components/ui/touchable";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import Image from "next/image";
 import RatingsModal from "@/app/modals/ratings";
 
@@ -16,7 +20,12 @@ export default function ClientsRating() {
         />
 
         <div className="flex flex-col gap-2">
-          <RatingStar />
+          <Rating
+            initialRating={0}
+            emptySymbol={<FaRegStar className="size-5 text-gray-200" />}
+            fullSymbol={<FaStar className="size-5 text-amber-300" />}
+            readonly
+          />
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
             temporibus beatae quae similique dolor veritatis tempora hic ipsam,

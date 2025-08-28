@@ -1,16 +1,26 @@
+'use client'
+
 import Touchable from "@/components/ui/touchable";
 import TextArea from "@/components/ui/textarea";
-import RatingStar from "@/components/shared/rating-star";
+import Rating from "react-rating";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 
 export default function RateForm() {
   return (
     <div className="flex flex-col justify-center items-center gap-5 font-poppins">
       <div className="flex flex-col w-full">
         <p className="underline">Como você avalia o atendimento?</p>
-        <RatingStar />
+        <Rating
+          initialRating={0}
+          emptySymbol={<FaRegStar className="size-5 text-gray-500" />}
+          fullSymbol={<FaStar className="size-5 text-amber-300" />}
+        />
       </div>
 
-      <TextArea />
+      <div className="w-full">
+        <TextArea className="w-full" />
+      </div>
 
       <Touchable>Publicar</Touchable>
     </div>
