@@ -1,7 +1,7 @@
-import avatarImage from "../../../../public/avatar.jpg"
-import { UserSignInForm } from "./user-signin-form";
+import avatarImage from "../../../public/avatar.jpg";
+import UserSignInForm from "./user-signin-form";
 import Image from "next/image";
-import { Touchable } from "@/components/shared/touchable";
+import Touchable from "@/components/ui/touchable";
 
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export function UserSignIn() {
+export default function UserSignIn() {
   return (
     <Dialog>
       <form>

@@ -1,4 +1,4 @@
-import { ConsultDetailsModal } from "@/modals/consult-details";
+import ConsultDetailsModal from "@/modals/consults-details";
 import FormData from "@/components/shared/form-data";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -11,18 +11,15 @@ type Consult = {
   hour: string;
 };
 
-type ConsultInformationsProps = {
+type ConsultInfoProps = {
   consult: Consult;
-  index: number;
 };
 
 export default function ConsultInfo({
   consult,
-  index,
-}: ConsultInformationsProps) {
+}: ConsultInfoProps) {
   return (
     <div
-      key={index}
       className="bg-gray-50 shadow-xl/20 border-1 border-gray-200 pt-5 pr-5 pl-5 rounded-4xl w-full"
     >
       <span className="font-bold underline">{consult.consultType}</span>

@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -19,12 +21,14 @@ export default function ConsultsFilter() {
     undefined
   );
 
-  const filteredConsults = consults.filter((consult: { date: string | number | Date; }) => {
-    const apptDate = new Date(consult.date);
-    if (dateRange?.from && apptDate < dateRange.from) return false;
-    if (dateRange?.to && apptDate > dateRange.to) return false;
-    return true;
-  });
+  const filteredConsults = consults.filter(
+    (consult: { date: string | number | Date }) => {
+      const apptDate = new Date(consult.date);
+      if (dateRange?.from && apptDate < dateRange.from) return false;
+      if (dateRange?.to && apptDate > dateRange.to) return false;
+      return true;
+    }
+  );
 
   return (
     <div className="flex flex-col p-4 space-y-4">
@@ -69,8 +73,8 @@ export default function ConsultsFilter() {
 
       <div className="space-y-2">
         {filteredConsults.length > 0 ? (
-          filteredConsults.map((consult: any, index: any) => (
-              <ConsultInfo consult={consult} index={index} />
+          filteredConsults.map((consult, index) => (
+            <ConsultInfo consult={consult} key={index} />
           ))
         ) : (
           <p className="text-sm text-gray-500">Nenhuma consulta encontrada.</p>

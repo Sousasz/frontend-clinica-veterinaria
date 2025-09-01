@@ -15,7 +15,7 @@ export default function UserDetails() {
             </EditableData>
 
             <EditableData fieldLabel="Telefone">
-              {formatToNumber("11999999999")}
+              {formatToNumber("999999999")}
             </EditableData>
 
             <EditableData fieldLabel="CEP">

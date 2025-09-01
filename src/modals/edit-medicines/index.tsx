@@ -1,7 +1,7 @@
 'use client'
 
 import { DialogContent, DialogHeader } from "@/components/ui/dialog";
-import AddVaccinesModal from "../add-vaccines/add-vaccines-form";
+import AddMedicinesModal from "../add-medicines";
 import { FaCheck } from "react-icons/fa6";
 
 import { useState, FormEvent } from "react";
@@ -9,50 +9,50 @@ import { v4 } from "uuid";
 
 import { GoPencil, GoTrash } from "react-icons/go";
 
-type VaccineType = "for-dogs" | "for-cats";
+type MedicineType = "injectables-medicines" | "no-injectables-medicines";
 
-type Vaccine = {
+type Medicine = {
   id: string;
-  vaccineName: string;
+  medicineName: string;
   description: string;
-  vaccineType: VaccineType;
+  medicineType: MedicineType;
 };
 
-export default function EditVaccinesModal() {
-  const [vaccines, setVaccines] = useState<Vaccine[]>([]);
+export default function EditMedicinesModal() {
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
 
-  const [vaccineName, setVaccineName] = useState("");
+  const [medicineName, setMedicineName] = useState("");
   const [description, setDescription] = useState("");
-  const [vaccineType, setVaccineType] = useState<VaccineType>(
-    "for-dogs"
+  const [medicineType, setMedicineType] = useState<MedicineType>(
+    "no-injectables-medicines"
   );
 
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
   const [tempName, setTempName] = useState("");
 
   function resetForm() {
-    setVaccineName("");
+    setMedicineName("");
     setDescription("");
-    setVaccineType("for-dogs");
+    setMedicineType("no-injectables-medicines");
   }
 
-  function addVacine(e: FormEvent) {
+  function addMedicine(e: FormEvent) {
     e.preventDefault();
 
-    const trimmedName = vaccineName.trim();
+    const trimmedName = medicineName.trim();
     if (!trimmedName) return;
 
-    const duplicate = vaccines.some((v) => v.vaccineName === trimmedName);
+    const duplicate = medicines.some((m) => m.medicineName === trimmedName);
     if (duplicate) return;
 
-    const newVaccine: Vaccine = {
+    const newMedicine: Medicine = {
       id: v4(),
-      vaccineName: trimmedName,
+      medicineName: trimmedName,
       description,
-      vaccineType,
+      medicineType,
     };
 
-    setVaccines((prev) => [...prev, newVaccine]);
+    setMedicines((prev) => [...prev, newMedicine]);
     resetForm();
   }
 
@@ -63,9 +63,9 @@ export default function EditVaccinesModal() {
 
   function saveInlineEdit(id: string) {
     if (!tempName.trim()) return;
-    setVaccines((prev) =>
-      prev.map((v: Vaccine) =>
-        v.id === id ? { ...v, vacineName: tempName.trim() } : v
+    setMedicines((prev) =>
+      prev.map((m) =>
+        m.id === id ? { ...m, medicineName: tempName.trim() } : m
       )
     );
     setEditingItemId(null);
@@ -77,45 +77,46 @@ export default function EditVaccinesModal() {
     setTempName("");
   }
 
-  function deleteVacine(id: string) {
-    setVaccines((prev) => prev.filter((v) => v.id !== id));
+  function deleteMedicine(id: string) {
+    setMedicines((prev) => prev.filter((m) => m.id !== id));
     if (editingItemId === id) cancelInlineEdit();
   }
 
-  function renderSection(title: string, type: VaccineType) {
+  
+  function renderSection(title: string, type: MedicineType) {
     return (
       <div className="flex flex-col gap-2">
         <h4 className="font-bold text-2xl">{title}</h4>
         <div>
           <ul className="flex flex-col gap-3">
-            {vaccines
-              .filter((v) => v.vaccineType === type)
-              .map((vaccine) => (
-                <div key={vaccine.id} className="flex flex-col gap-1">
+            {medicines
+              .filter((m) => m.medicineType === type)
+              .map((medicine) => (
+                <div key={medicine.id} className="flex flex-col gap-1">
                   <div className="flex gap-4 justify-between items-center">
                     <li className="underline list-disc text-xl">
-                      {editingItemId === vaccine.id ? (
+                      {editingItemId === medicine.id ? (
                         <input
                           type="text"
                           value={tempName}
                           onChange={(e) => setTempName(e.target.value)}
                           onKeyDown={(e) => {
-                            if (e.key === "Enter") saveInlineEdit(vaccine.id);
+                            if (e.key === "Enter") saveInlineEdit(medicine.id);
                             if (e.key === "Escape") cancelInlineEdit();
                           }}
                           autoFocus
                           className="border border-gray-400 rounded px-2 py-1"
                         />
                       ) : (
-                        vaccine.vaccineName
+                        medicine.medicineName
                       )}
                     </li>
 
                     <div className="flex gap-3">
-                      {editingItemId === vaccine.id ? (
+                      {editingItemId === medicine.id ? (
                         <>
                           <button
-                            onClick={() => saveInlineEdit(vaccine.id)}
+                            onClick={() => saveInlineEdit(medicine.id)}
                             title="Salvar"
                           >
                             <FaCheck />
@@ -130,8 +131,8 @@ export default function EditVaccinesModal() {
                             className="cursor-pointer"
                             onClick={() =>
                               startInlineEditing(
-                                vaccine.id,
-                                vaccine.vaccineName
+                                medicine.id,
+                                medicine.medicineName
                               )
                             }
                             aria-label="Editar medicamento"
@@ -142,7 +143,7 @@ export default function EditVaccinesModal() {
 
                           <button
                             className="cursor-pointer"
-                            onClick={() => deleteVacine(vaccine.id)}
+                            onClick={() => deleteMedicine(medicine.id)}
                             aria-label="Remover medicamento"
                             title="Excluir"
                           >
@@ -152,7 +153,7 @@ export default function EditVaccinesModal() {
                       )}
                     </div>
                   </div>
-                  <p>{vaccine.description}</p>
+                  <p>{medicine.description}</p>
                 </div>
               ))}
           </ul>
@@ -169,16 +170,16 @@ export default function EditVaccinesModal() {
         </DialogHeader>
 
         <div className="flex flex-col gap-14">
-          {renderSection("Para cães:", "for-dogs")}
-          {renderSection("Para gatos:", "for-cats")}
+          {renderSection("Não injetáveis:", "no-injectables-medicines")}
+          {renderSection("Injetáveis:", "injectables-medicines")}
         </div>
 
-        <AddVaccinesModal
-          addVaccine={addVacine}
-          vaccineType={vaccineType}
+        <AddMedicinesModal
+          addMedicine={addMedicine}
+          medicineType={medicineType}
           setDescription={setDescription}
-          setVaccineName={setVaccineName}
-          setVaccineType={setVaccineType}
+          setMedicineName={setMedicineName}
+          setMedicineType={setMedicineType}
         />
       </div>
     </DialogContent>

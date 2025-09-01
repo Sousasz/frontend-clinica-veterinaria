@@ -4,7 +4,7 @@ import { CallToAction } from "./call-to-action";
 import { AlignJustify } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import Image from "next/image";
-import { UserSignIn } from "@/app/modals/user-signin";
+import UserSignIn from "@/modals/user-signin";
 import Link from "next/link";
 
 import { useState } from "react";
@@ -45,7 +45,7 @@ export default function Header() {
               </li>
 
               <li>
-                <Link href="/adm">Admin</Link>
+                <Link href="/admin">Admin</Link>
               </li>
             </ul>
           </nav>
@@ -85,7 +85,7 @@ export default function Header() {
                   </li>
 
                   <li>
-                    <Link href="/adm">Admin</Link>
+                    <Link href="/admin">Admin</Link>
                   </li>
                 </ul>
               </div>

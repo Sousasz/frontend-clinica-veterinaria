@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-export function UserSignInForm() {
+export default function UserSignInForm() {
   return (
     <div className="flex flex-col justify-center items-center gap-5">
       <div className="flex flex-col gap-3 w-[90%]">

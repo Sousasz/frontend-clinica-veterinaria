@@ -22,7 +22,11 @@ interface TouchableProps
   children: ReactNode;
 }
 
-export default function Touchable({ children, buttonType, ...props }: TouchableProps) {
+export default function Touchable({
+  children,
+  buttonType,
+  ...props
+}: TouchableProps) {
   return (
     <button {...props} className={touchableVariants({ buttonType })}>
       {children}

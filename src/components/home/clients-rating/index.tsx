@@ -7,7 +7,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import Image from "next/image";
-import RatingsModal from "@/app/modals/ratings";
+import RatingsModal from "@/modals/ratings";
 
 export default function ClientsRating() {
   return (

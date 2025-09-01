@@ -1,25 +1,25 @@
 import ActionButton from "../shared/action-button";
 import { IconType } from "react-icons/lib";
-import { EditMedicinesModal } from "@/modals/edit-medicines";
+import EditMedicinesModal from "@/modals/edit-medicines";
 import RatingsModal from "@/modals/ratings";
-import { EditVacinesModal } from "@/modals/edit-vacines";
+import EditVaccinesModal from "@/modals/edit-vaccines";
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 const modalComponent: Record<string, JSX.Element> = {
   Medicamento: <EditMedicinesModal />,
-  Vacina: <EditVacinesModal />,
+  Vacina: <EditVaccinesModal />,
   Avaliação: <RatingsModal />,
 };
 
-type ButtonsOfAction = {
+type ActionButtonProps = {
   type: string;
   text: string;
   icon: IconType;
 };
 
 type ButtonsProps = {
-  Button: ButtonsOfAction;
+  Button: ActionButtonProps;
 };
 
 export default function ButtonDialog({ Button }: ButtonsProps) {

@@ -1,6 +1,7 @@
 import Title from "@/components/ui/title";
-import { BookedConsults } from "./consults/consults-booked";
+import ConsultsBooked from "./consults/consults-booked";
 import ButtonDialog from "@/components/ui/button-dialog";
+import { admButtons } from "@/consts/adm-buttons";
 
 export default function Admin() {
   return (
@@ -19,7 +20,7 @@ export default function Admin() {
             })}
           </div>
 
-          <BookedConsults />
+          <ConsultsBooked />
         </div>
       </div>
     </section>

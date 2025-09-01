@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 
 import Title from "@/components/ui/title";
-import { ConsultDetailsForm } from "./consult-details-form";
+import ConsultDetailsForm from "./consult-details-form";
 
 export default function ConsultDetailsModal() {
   return (

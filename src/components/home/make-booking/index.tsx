@@ -1,6 +1,6 @@
 import About from "./about";
 import Title from "@/components/ui/title";
-import BookingModal from "@/app/modals/booking";
+import BookingModal from "@/modals/booking";
 
 export default function MakeBooking() {
   return (

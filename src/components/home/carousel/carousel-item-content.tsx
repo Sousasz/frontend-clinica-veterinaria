@@ -1,7 +1,7 @@
 import { JSX } from "react";
-import NoInjectablesMedicineModal from "@/app/modals/noinjectables-medicines";
-import InjectablesMedicineModal from "@/app/modals/injectables-medicines";
-import VaccinesModal from "@/app/modals/vaccines";
+import NoInjectablesMedicineModal from "@/modals/noinjectables-medicines";
+import InjectablesMedicineModal from "@/modals/injectables-medicines";
+import VaccinesModal from "@/modals/vaccines";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 import Image, { StaticImageData } from "next/image";

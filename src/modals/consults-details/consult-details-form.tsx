@@ -1,6 +1,8 @@
 import PetDetails from "../edit-pet/pet-details";
 import UserDetails from "../edit-user/user-details";
 import SubTitle from "@/components/ui/subtitle";
+import { CalendarCheck } from "lucide-react";
+import { ClockFading } from "lucide-react";
 
 export default function ConsultDetailsForm() {
   return (
@@ -19,8 +21,18 @@ export default function ConsultDetailsForm() {
             quae perferendis soluta?
           </p>
         </div>
-        
-        <DateAndHour />
+
+        <div className="flex justify-center gap-3 m-5">
+          <div className="flex gap-1 items-center">
+            <CalendarCheck className="size-8" />
+            <span>Data</span>
+          </div>
+
+          <div className="flex gap-1 items-center">
+            <ClockFading className="size-8" />
+            <span>Hora</span>
+          </div>
+        </div>
       </div>
     </div>
   );
