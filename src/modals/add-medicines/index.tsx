@@ -1,7 +1,9 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+'use client'
+
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import Touchable from "@/components/ui/touchable";
 import AddMedicinesForm from "./add-medicines-form";
-import { FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
 type MedicineType = "injectables-medicines" | "no-injectables-medicines";
 
@@ -20,13 +22,23 @@ export default function AddMedicinesModal({
   medicineType,
   setMedicineType,
 }: AddMedicinesModalProps) {
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if(!isClient) return null
+
   return (
     <Dialog>
-      <DialogTrigger>
-        <Touchable suppressHydrationWarning>Adicionar medicamento</Touchable>
+      <DialogTrigger asChild>
+        <Touchable>Adicionar medicamento</Touchable>
       </DialogTrigger>
 
       <DialogContent className="shadow-default bg-green-light bg-[url('/public/background-image.svg')] bg-cover bg-center bg-no-repeat rounded-4xl font-poppins">
+        <DialogTitle></DialogTitle>
         <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-4xl flex flex-col gap-5 max-h-[80vh] overflow-y-scroll scrollbar-hide">
           <AddMedicinesForm
             addMedicine={addMedicine}

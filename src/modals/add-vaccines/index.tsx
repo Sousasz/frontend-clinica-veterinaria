@@ -26,7 +26,7 @@ export default function AddVaccinesModal({
 }: AddVaccinesModalProps) {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Touchable>Adicionar vacina</Touchable>
       </DialogTrigger>
 
