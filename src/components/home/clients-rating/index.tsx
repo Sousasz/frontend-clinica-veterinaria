@@ -1,6 +1,6 @@
 'use client'
 
-import avatarImage from "../../../../public/avatar.jpg";
+import avatarImage from "../../../../public/avatar.webp";
 import Rating from "react-rating";
 import Touchable from "@/components/ui/touchable";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";

@@ -1,8 +1,8 @@
-import medicineImage from "../../public/medicine.jpg"
-import clinicalConsult from "../../public/clinical-consultation.jpg"
-import injectableMedicine from "../../public/injectable-medicine.jpg"
-import preventiveConsult from "../../public/preventive-consultation.jpg"
-import vaccinationImage from "../../public/vaccination.jpg"
+import medicineImage from "../../public/medicine.webp"
+import clinicalConsult from "../../public/clinical-consultation.webp"
+import injectableMedicine from "../../public/injectable-medicine.webp"
+import preventiveConsult from "../../public/preventive-consultation.webp"
+import vaccinationImage from "../../public/vaccination.webp"
 import { StaticImageData } from "next/image"
 
 
