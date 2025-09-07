@@ -1,5 +1,5 @@
 import Title from "@/components/ui/title";
-import { SignUpPetForm } from "./signup-pet-form";
+import SignUpPetForm from "./signup-pet-form";
 
 export default function SignUpPet() {
   return (
