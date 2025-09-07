@@ -1,5 +1,5 @@
 import avatarImage from "../../../public/avatar.webp";
-import UserSignInForm from "./user-signin-form";
+import SignInUserForm from "./signin-user-form";
 import Image from "next/image";
 import Touchable from "@/components/ui/touchable";
 
@@ -33,7 +33,7 @@ export default function UserSignIn() {
               </DialogTitle>
             </DialogHeader>
 
-            <UserSignInForm />
+            <SignInUserForm />
 
             <Touchable>Entrar</Touchable>
           </div>

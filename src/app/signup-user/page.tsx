@@ -1,6 +1,7 @@
 import Title from "@/components/ui/title";
 import SignUpUserForm from "./signup-user-form";
 
+
 export default function SignUpUser() {
   return (
     <div className="w-screen bg-[url('/public/background-image.svg')] bg-cover bg-center bg-no-repeat px-30 py-5 font-poppins">
