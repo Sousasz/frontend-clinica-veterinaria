@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
-import TextArea from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import Touchable from "@/components/ui/touchable";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, SetStateAction } from "react";
 
 type MedicineType = "injectables-medicines" | "no-injectables-medicines";
 
@@ -29,8 +29,8 @@ export default function AddMedicinesForm({
           }
           placeholder="Nome do medicamento"
         />
-        <TextArea
-          onChange={(e) => setDescription(e.target.value)}
+        <Textarea
+          onChange={(e: { target: { value: SetStateAction<string>; }; }) => setDescription(e.target.value)}
           placeholder="Descrição breve"
         />
       </div>

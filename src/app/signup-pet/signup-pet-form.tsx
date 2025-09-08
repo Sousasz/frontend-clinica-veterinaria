@@ -19,7 +19,7 @@ export default function SignUpPetForm() {
         </div>
 
         <div className="flex gap-2">
-          <Input placeholder="Peso:" />
+          <Input placeholder="Peso: " />
 
           {/* Combobox */}
           <Input placeholder="Temperamento:" />

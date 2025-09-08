@@ -7,9 +7,8 @@ import Link from "next/link";
 export default function BookingForm() {
   return (
     <div className="flex flex-col items-center gap-10">
-      <div className="flex w-full justify-between max-[1335px]:flex-col max-[1335px]:gap-20">
+      <div className="flex w-full justify-between items-center max-[1335px]:flex-col max-[1335px]:gap-20">
         <div className="grid gap-10">
-          <Title>Ficha do agendamento</Title>
           <BookingInputs />
 
           <span className="flex flex-col justify-center font-poppins text-sm text-center">

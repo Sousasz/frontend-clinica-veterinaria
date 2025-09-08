@@ -15,3 +15,5 @@ export default function Title({ children, className, ...rest }: TitleProps) {
     </div>
   );
 }
+
+// className={ ${className}`}

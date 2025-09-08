@@ -31,9 +31,9 @@ export default function AddVaccinesModal({
         <Touchable>Adicionar vacina</Touchable>
       </DialogTrigger>
 
-      <DialogContent className="shadow-default bg-green-light bg-[url('/public/background-image.svg')] bg-cover bg-center bg-no-repeat rounded-4xl font-poppins">
+      <DialogContent className="shadow-default bg-green-light bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat rounded-4xl font-poppins">
         <DialogTitle></DialogTitle>
-        <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-4xl flex flex-col gap-5 max-h-[80vh] overflow-y-scroll scrollbar-hide">
+        <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-4xl flex flex-col gap-5 max-h-[80vh] overflow-y-auto scrollbar-hide">
           <AddVaccinesForm
             addVaccine={addVaccine}
             vaccineType={vaccineType}

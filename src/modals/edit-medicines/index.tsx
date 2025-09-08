@@ -1,6 +1,10 @@
-'use client'
+"use client";
 
-import { DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import AddMedicinesModal from "../add-medicines";
 import { FaCheck } from "react-icons/fa6";
 
@@ -21,14 +25,11 @@ type Medicine = {
 export default function EditMedicinesModal() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
 
-  
   const [medicineName, setMedicineName] = useState("");
   const [description, setDescription] = useState("");
   const [medicineType, setMedicineType] = useState<MedicineType>(
     "no-injectables-medicines"
   );
-
-   
 
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
   const [tempName, setTempName] = useState("");
@@ -85,7 +86,6 @@ export default function EditMedicinesModal() {
     if (editingItemId === id) cancelInlineEdit();
   }
 
-  
   function renderSection(title: string, type: MedicineType) {
     return (
       <div className="flex flex-col gap-2">
@@ -166,8 +166,8 @@ export default function EditMedicinesModal() {
   }
 
   return (
-    <DialogContent className="sm:max-w-[90%] shadow-default h-[90%] bg-green-light font-poppins bg-[url('/public/background-image.svg')] bg-cover bg-center bg-no-repeat">
-      <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-lg flex flex-col gap-10 overflow-y-scroll scrollbar-hide">
+    <DialogContent className="sm:max-w-[90%] shadow-default h-[90%] bg-green-light font-poppins bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat">
+      <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-lg flex flex-col gap-10 overflow-y-auto scrollbar-hide">
         <DialogHeader className="max-w-full flex items-center">
           <DialogTitle>MEDICAMENTOS</DialogTitle>
         </DialogHeader>

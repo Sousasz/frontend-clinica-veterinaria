@@ -18,7 +18,7 @@ export default function BookingModal() {
           </Touchable>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-[90%] shadow-default h-[90%] bg-green-light bg-[url('/public/background-image.svg')] bg-cover bg-center bg-no-repeat">
+        <DialogContent className="sm:max-w-[90%] shadow-default h-[90%] bg-green-light bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat">
           <div className="backdrop-blur-md bg-white/25 shadow-2xl p-10 rounded-lg flex flex-col gap-10 overflow-y-auto scrollbar-hide">
             <DialogHeader className="max-w-full flex items-center">
               <DialogTitle className="text-center text-3xl font-poppins font-light p-1 w-80">

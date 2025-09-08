@@ -21,7 +21,7 @@ export default function ClientsRating() {
 
         <div className="flex flex-col gap-2">
           <Rating
-            initialRating={0}
+            initialRating={4}
             emptySymbol={<FaRegStar className="size-5 text-gray-200" />}
             fullSymbol={<FaStar className="size-5 text-amber-300" />}
             readonly

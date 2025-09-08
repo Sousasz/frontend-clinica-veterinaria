@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as React from "react";
 import { format } from "date-fns";
@@ -32,44 +32,46 @@ export default function ConsultsFilter() {
 
   return (
     <div className="flex flex-col p-4 space-y-4">
-      <span>Filtrar por data:</span>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            className="w-[280px] justify-start text-left font-normal"
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {dateRange?.from ? (
-              dateRange?.to ? (
-                <>
-                  {format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} -{" "}
-                  {format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}
-                </>
+      <div className="flex flex-col max-[520px]:items-center">
+        <span>Filtrar por data:</span>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className="max-w-72 max-[320px]:w-48 text-left justify-start font-normal"
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {dateRange?.from ? (
+                dateRange?.to ? (
+                  <>
+                    {format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} -{" "}
+                    {format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}
+                  </>
+                ) : (
+                  format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })
+                )
               ) : (
-                format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })
-              )
-            ) : (
-              <span>Selecione o período</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            className="font-poppins"
-            mode="range"
-            selected={dateRange}
-            onSelect={setDateRange}
-            numberOfMonths={2}
-            locale={ptBR}
-            formatters={{
-              formatWeekdayName: (day) => {
-                return format(day, "EEEEE", { locale: ptBR });
-              },
-            }}
-          />
-        </PopoverContent>
-      </Popover>
+                <span>Selecione o período</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              className="font-poppins"
+              mode="range"
+              selected={dateRange}
+              onSelect={setDateRange}
+              numberOfMonths={2}
+              locale={ptBR}
+              formatters={{
+                formatWeekdayName: (day) => {
+                  return format(day, "EEEEE", { locale: ptBR });
+                },
+              }}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
 
       <div className="space-y-2">
         {filteredConsults.length > 0 ? (

@@ -5,7 +5,7 @@ export function Contact() {
   return (
     <div className="flex gap-48 max-[600px]:flex-col max-[600px]:gap-16">
       <div className="flex flex-col justify-start items-center max-[600px]:items-start gap-2">
-        <h5 className="text-gray-base">Nossas redes</h5>
+        <h5 className="text-gray-base">NOSSAS REDES</h5>
 
         <div className="flex items-center gap-2">
           <Instagram className="size-7" />

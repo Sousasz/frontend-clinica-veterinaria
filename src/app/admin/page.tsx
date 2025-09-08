@@ -6,7 +6,7 @@ import { admButtons } from "@/consts/adm-buttons";
 export default function Admin() {
   return (
     <section className="w-full h-full font-poppins">
-      <div className="flex flex-col max-w-screen mx-20 my-10 gap-14">
+      <div className="flex flex-col mx-20 my-10 max-[520px]:mx-8 max-[350px]:mx-4 max-[280px]:mx-1  gap-14">
         <div className="flex flex-col gap-10">
           <Title>Setor administrativo</Title>
 
