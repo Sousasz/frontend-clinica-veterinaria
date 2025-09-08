@@ -1,7 +1,7 @@
 'use client'
 
 import Touchable from "@/components/ui/touchable";
-import TextArea from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import Rating from "react-rating";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
@@ -19,7 +19,7 @@ export default function RateForm() {
       </div>
 
       <div className="w-full">
-        <TextArea className="w-full" />
+        <Textarea className="w-full" />
       </div>
 
       <Touchable>Publicar</Touchable>
