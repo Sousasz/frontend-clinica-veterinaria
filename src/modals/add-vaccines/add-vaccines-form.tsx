@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import TextArea from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import Touchable from "@/components/ui/touchable";
 import { ChangeEvent, FormEvent } from "react";
 
@@ -29,7 +29,7 @@ export default function AddVaccinesForm({
           }
           placeholder="Nome do medicamento"
         />
-        <TextArea
+        <Textarea
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Descrição breve"
         />

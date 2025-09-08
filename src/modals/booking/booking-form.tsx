@@ -1,7 +1,6 @@
 import BookingInputs from "./booking-inputs";
 import BookingDetails from "./booking-details";
 import Touchable from "@/components/ui/touchable";
-import Title from "@/components/ui/title";
 import Link from "next/link";
 
 export default function BookingForm() {
