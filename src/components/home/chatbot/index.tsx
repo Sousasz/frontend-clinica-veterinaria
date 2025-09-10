@@ -21,13 +21,17 @@ export default function Chatbot() {
   }
 
   function addQuestion(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const target = new FormData(e.currentTarget);
-    const value = target.get("question")?.toString();
+  e.preventDefault();
+  const target = new FormData(e.currentTarget);
+  const value = target.get("question")?.toString();
 
-    setMessage([...message, value]);
-    e.currentTarget.reset()
+  if (value) {
+    setMessage((prev) => [ ...(prev ?? []), value ]);
   }
+
+  e.currentTarget.reset();
+}
+
 
   return (
     <>
