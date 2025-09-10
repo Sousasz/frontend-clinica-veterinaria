@@ -1,5 +1,5 @@
 import { IoMdClose } from "react-icons/io";
-import pingoImage from "../../../../public/pingo.webp"
+import pingoImage from "@/../public/pingo.webp"
 import Image from "next/image";
 
 type ChatBotHeaderProps = {
@@ -20,7 +20,7 @@ export default function ChatBotHeader({ onCloseChatBot }: ChatBotHeaderProps) {
         </button>
       </div>
 
-      <span className="w-full h-0.5 bg-gray-400 block " />
+      <span className="w-full h-0.5 bg-gray-400 block" />
     </div>
   );
 }
