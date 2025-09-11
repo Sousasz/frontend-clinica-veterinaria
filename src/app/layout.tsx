@@ -7,6 +7,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Home | Joyce Clínica Veterinária",
   description: "O melhor serviço veterinário oferecido a seu pet!",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const poppins = Poppins({
@@ -21,6 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="pt-br">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </head>   
+      
       <body className={`antialiased`}>
         <Header />
         {children}

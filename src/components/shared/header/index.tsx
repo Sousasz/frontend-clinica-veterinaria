@@ -2,7 +2,7 @@
 
 import { CallToAction } from "./call-to-action";
 import { AlignJustify } from "lucide-react";
-import logo from "@/assets/logo.svg";
+import logo from "@/assets/logo.webp";
 import Image from "next/image";
 import UserSignIn from "@/modals/user-signin";
 import Link from "next/link";
@@ -20,7 +20,7 @@ export default function Header() {
     <>
       <header className="flex justify-between items-center py-5 px-10 ">
         <div className="flex justify-center items-center gap-10">
-          <Image src={logo} alt="Logo da clínica - Cachorro" />
+          <Image className="w-20" src={logo} alt="Logo da clínica - Cachorro" />
           <nav className="hidden xl:block">
             <ul className="flex gap-10">
               <li>
@@ -54,7 +54,10 @@ export default function Header() {
           <div className="flex gap-10">
             <UserSignIn />
 
-            <button onClick={onClickToOpenTheMenu} className="cursor-pointer xl:hidden block">
+            <button
+              onClick={onClickToOpenTheMenu}
+              className="cursor-pointer xl:hidden block"
+            >
               <AlignJustify className="size-10  " />
             </button>
           </div>

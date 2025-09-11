@@ -1,12 +1,13 @@
 import EditableData from "@/components/shared/editable-data";
 import Touchable from "@/components/ui/touchable";
-import { formatToCPF, formatToNumber, formatToCEP } from "brazilian-values";
+import { formatToCPF, formatToCEP, formatToPhone } from "brazilian-values";
+import { DialogClose } from "@/components/ui/dialog";
 
 export default function UserDetails() {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex justify-center font-poppins">
-        <div className="flex flex-col gap-3 w-full">
+        <div className="flex flex-col gap-3 w-full"> 
           <div className="flex flex-col gap-4">
             <EditableData fieldLabel="Nome completo">John Doe</EditableData>
 
@@ -15,7 +16,7 @@ export default function UserDetails() {
             </EditableData>
 
             <EditableData fieldLabel="Telefone">
-              {formatToNumber("999999999")}
+              {formatToPhone("99999999999")}
             </EditableData>
 
             <EditableData fieldLabel="CEP">
@@ -35,7 +36,9 @@ export default function UserDetails() {
         </div>
       </div>
 
-      <Touchable>Concluído</Touchable>
+      <DialogClose>
+        <Touchable>Concluído</Touchable>
+      </DialogClose>
     </div>
   );
 }

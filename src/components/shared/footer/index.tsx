@@ -1,6 +1,6 @@
 import { Contact } from "./contact";
 import { DevelopmentCompany } from "./development-company";
-import logo from "../../../assets/logo.svg";
+import logo from "../../../assets/logo.webp";
 import Image from "next/image";
 
 export default function Footer() {
