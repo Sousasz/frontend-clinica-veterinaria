@@ -12,7 +12,7 @@ export default function ServicesCarousel() {
     <section className="flex flex-col items-center gap-10" id="services">
       <div>
         <Title>Nossos serviços</Title>
-      </div>
+  
 
       <Carousel >
         <CarouselContent>
