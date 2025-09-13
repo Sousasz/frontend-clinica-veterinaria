@@ -1,5 +1,6 @@
 import MaskedInput from "@/components/shared/masked-input";
 import { Input } from "@/components/ui/input";
+import { DialogClose } from "@/components/ui/dialog"
 import Link from "next/link";
 
 export default function SignInUserForm() {
@@ -15,9 +16,11 @@ export default function SignInUserForm() {
           Esqueceu a senha?
         </Link>
 
+      <DialogClose>
         <Link href="/signup-user" className="font-medium underline">
           Não tem um login? Cadastre-se
         </Link>
+        </DialogClose>
       </span>
     </div>
   );
