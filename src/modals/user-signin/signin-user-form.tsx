@@ -12,7 +12,7 @@ export default function SignInUserForm() {
       </div>
 
       <span className="flex flex-col justify-center font-poppins text-sm text-center">
-        <Link href="/" className="font-medium underline">
+        <Link href="/reset-password" className="font-medium underline">
           Esqueceu a senha?
         </Link>
 
