@@ -11,7 +11,6 @@ import {
 export default function BookingModal() {
   return (
     <Dialog>
-      <form>
         <DialogTrigger asChild>
           <Touchable buttonType="secondary">
             Clique aqui para agendar uma consulta
@@ -29,7 +28,6 @@ export default function BookingModal() {
             <BookingForm />
           </div>
         </DialogContent>
-      </form>
     </Dialog>
   );
 }
