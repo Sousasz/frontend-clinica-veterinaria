@@ -5,7 +5,7 @@ import Touchable from "@/components/ui/touchable";
 
 export default function ResetPassword() {
   return (
-    <div className="flex flex-col items-center w-full h-screen bg-green-light bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat">
+    <div className="flex flex-col justify-center items-center w-full h-screen bg-green-light bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat">
       <Image
         src={petIconImage}
         alt="Ícone de um cachorro - marca da clínica veterinária"
