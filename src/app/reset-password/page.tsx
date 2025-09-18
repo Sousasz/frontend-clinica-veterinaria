@@ -1,5 +1,5 @@
 import Image from "next/image";
-import petIconImage from "../../../public/pet-icon.webp";
+import petIconImage from "../../../public/images/pet-icon.webp";
 import MaskedInput from "@/components/shared/masked-input";
 import Touchable from "@/components/ui/touchable";
 
