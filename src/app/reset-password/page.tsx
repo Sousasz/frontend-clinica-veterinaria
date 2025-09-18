@@ -1,11 +1,11 @@
 import Image from "next/image";
 import petIconImage from "../../../public/images/pet-icon.webp";
 import MaskedInput from "@/components/shared/masked-input";
-import Touchable from "@/components/ui/touchable";
+import LinkConfirmationModal from "@/modals/link-confirmation";
 
 export default function ResetPassword() {
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen bg-green-light bg-[url('/background-image.webp')] bg-cover bg-center bg-no-repeat">
+    <div className="flex flex-col justify-center items-center w-full h-screen bg-green-light bg-cover bg-center bg-no-repeat bg-[url('/images/background-image.webp')] gap-5">
       <Image
         src={petIconImage}
         alt="Ícone de um cachorro - marca da clínica veterinária"
@@ -19,7 +19,7 @@ export default function ResetPassword() {
 
         <form className="flex flex-col gap-8 m-5">
           <MaskedInput placeholder="Telefone" mask="(99) 99999-9999" />
-          <Touchable>Enviar telefone</Touchable>
+          <LinkConfirmationModal />
         </form>
       </div>  
     </div>

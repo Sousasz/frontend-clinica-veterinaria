@@ -64,7 +64,7 @@ export default function Header() {
 
           {isOpenMenu ? (
             <>
-              <div className="w-full flex justify-end">
+              <div className="w-full flex justify-end xl:hidden">
                 <ul className="bg-white border border-b-black border-l-black border-white p-3 flex flex-col gap-5 bottom-0 top-[6.5rem] right-0 absolute z-1 h-80">
                   <li>
                     <Link href="/#home">Home</Link>
