@@ -1,4 +1,4 @@
-import pingoImage from "../../../../public/pingo.webp";
+import pingoImage from "../../../../public/images/pingo.webp";
 import Image from "next/image";
 
 type ChatBotResponseProps = {

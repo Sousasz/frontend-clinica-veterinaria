@@ -1,6 +1,6 @@
 import vectorElement1 from "@/assets/vector-1.webp";
 import vectorElement2 from "@/assets/vector-2.webp";
-import brandImage from "../../../../public/brand.webp";
+import brandImage from "../../../../public/images/brand.webp";
 import Image from "next/image";
 
 export default function Hero() {

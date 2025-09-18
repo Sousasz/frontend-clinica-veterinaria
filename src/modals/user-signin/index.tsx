@@ -1,4 +1,4 @@
-import avatarImage from "../../../public/avatar.webp";
+import avatarImage from "../../../public/images/avatar.webp";
 import SignInUserForm from "./signin-user-form";
 import Image from "next/image";
 import Touchable from "@/components/ui/touchable";

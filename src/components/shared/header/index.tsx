@@ -20,7 +20,7 @@ export default function Header() {
     <>
       <header className="flex justify-between items-center py-5 px-10 ">
         <div className="flex justify-center items-center gap-10">
-          <Image className="w-20" src={logo} alt="Logo da clínica - Cachorro" />
+          <Image priority className="w-20" src={logo} alt="Logo da clínica - Cachorro" />
           <nav className="hidden xl:block">
             <ul className="flex gap-10">
               <li>

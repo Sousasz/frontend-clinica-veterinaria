@@ -1,4 +1,4 @@
-import areasImage from "../../../../public/areas.webp"
+import areasImage from "../../../../public/images/areas.webp"
 import Title from "@/components/ui/title";
 import RegionsToSevice from "../regions/regions-to-service";
 import Image from "next/image";

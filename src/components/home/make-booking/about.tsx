@@ -1,5 +1,5 @@
 import Image from "next/image";
-import joycePhoto from "../../../../public/joyce-photo.webp"
+import joycePhoto from "../../../../public/images/joyce-photo.webp"
 
 
 export default function About() {

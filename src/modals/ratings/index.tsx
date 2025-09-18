@@ -9,7 +9,7 @@ import { ratings } from "@/consts/ratings";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 
-import avatarImage from "../../../public/avatar.webp";
+import avatarImage from "../../../public/images/avatar.webp";
 import Title from "@/components/ui/title";
 import Rating from "react-rating";
 import Image from "next/image";

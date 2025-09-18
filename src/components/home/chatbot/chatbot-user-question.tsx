@@ -1,4 +1,4 @@
-import avatarImage from "../../../../public/avatar.webp";
+import avatarImage from "../../../../public/images/avatar.webp";
 import Image from "next/image";
 
 type ChatBotUserQuestionProps = {

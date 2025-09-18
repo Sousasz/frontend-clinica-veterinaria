@@ -1,4 +1,4 @@
-import companyImage from "../../../../public/company.webp";
+import companyImage from "../../../../public/images/company.webp";
 import Image from "next/image";
 
 export function DevelopmentCompany() {
