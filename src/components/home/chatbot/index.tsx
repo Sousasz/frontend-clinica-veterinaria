@@ -6,11 +6,48 @@ import ChatBotContent from "./chatbot-content";
 import ChatBotResponse from "./chatbot-response";
 import ChatBotUserQuestion from "./chatbot-user-question";
 import ChatBotInput from "./chatbot-input";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+
+type Message = {
+  role: "user" | "bot";
+  content: string;
+};
 
 export default function Chatbot() {
   const [isOpenChat, setIsOpenChat] = useState(false);
-  const [message, setMessage] = useState<string[] | undefined>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function sendMessage(e?: React.FormEvent) {
+    e?.preventDefault();
+    if (!input.trim()) return;
+
+    const newMessages: Message[] = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      // Chamada ao backend que utiliza PuterJS
+      const res = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
+      });
+
+      const data = await res.json();
+
+      setMessages([...newMessages, { role: "bot", content: data.reply }]);
+    } catch (error) {
+      setMessages([
+        ...newMessages,
+        { role: "bot", content: "❌ Ocorreu um erro ao processar sua mensagem." },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   function onClickIconToChatBot() {
     setIsOpenChat(!isOpenChat);
@@ -20,19 +57,6 @@ export default function Chatbot() {
     setIsOpenChat(false);
   }
 
-  function addQuestion(e: FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-  const target = new FormData(e.currentTarget);
-  const value = target.get("question")?.toString();
-
-  if (value) {
-    setMessage((prev) => [ ...(prev ?? []), value ]);
-  }
-
-  e.currentTarget.reset();
-}
-
-
   return (
     <>
       {isOpenChat ? (
@@ -41,25 +65,28 @@ export default function Chatbot() {
             <ChatBotHeader onCloseChatBot={onCloseChatBot} />
 
             <ChatBotContent>
-              <ChatBotResponse>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente repudiandae ipsa quos dolorem, commodi, harum ducimus
-                mollitia, eos illum eum nulla fugiat ex quam dolore sit. Et
-                reprehenderit beatae eveniet qui aut vero cum minima, ipsa
-                repudiandae iusto delectus aliquam optio possimus expedita,
-                obcaecati molestias cupiditate deserunt quidem quam quod.
-              </ChatBotResponse>
-
               <div className="flex flex-col gap-2">
-                {message?.map((text, index) => {
-                  return (
-                    <ChatBotUserQuestion key={index}>{text}</ChatBotUserQuestion>
-                  );
-                })}
+                {messages.map((msg, index) =>
+                  msg.role === "user" ? (
+                    <ChatBotUserQuestion key={index}>
+                      {msg.content}
+                    </ChatBotUserQuestion>
+                  ) : (
+                    <ChatBotResponse key={index}>{msg.content}</ChatBotResponse>
+                  )
+                )}
+
+                {loading && (
+                  <ChatBotResponse>Digitando...</ChatBotResponse>
+                )}
               </div>
             </ChatBotContent>
 
-            <ChatBotInput addQuestion={addQuestion} />
+            <ChatBotInput
+              value={input}
+              setValue={setInput}
+              onSend={sendMessage}
+            />
           </div>
         </section>
       ) : (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Head from 'next/head'
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import "./globals.css";
@@ -24,10 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="pt-br">
-      <head>
+      <Head>
         <link rel="manifest" href="/manifest.json" />
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;" />
         <meta name="theme-color" content="#000000" />
-      </head>   
+      </Head>   
       
       <body className={`antialiased`}>
         <Header />
