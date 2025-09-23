@@ -3,7 +3,12 @@ import Touchable from "@/components/ui/touchable";
 import { formatToCPF, formatToCEP, formatToPhone } from "brazilian-values";
 import { DialogClose } from "@/components/ui/dialog";
 
-export default function UserDetails() {
+
+type UserDetailsProps = { 
+  mask?: string;
+}
+
+export default function UserDetails({ mask }: UserDetailsProps) {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex justify-center font-poppins">
@@ -36,7 +41,7 @@ export default function UserDetails() {
         </div>
       </div>
 
-      <DialogClose>
+      <DialogClose asChild>
         <Touchable>Concluído</Touchable>
       </DialogClose>
     </div>

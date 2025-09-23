@@ -9,7 +9,7 @@ export default function SignInUserForm() {
         <MaskedInput name="cpf-rg" placeholder="CPF/RG" mask="999.999.999-99" />
         <Input name="password" type="password" placeholder="Senha" />
       </div>
-      a
+        
       <span className="flex flex-col justify-center font-poppins text-sm text-center">
         <Link href="/reset-password" className="font-medium underline">
           Esqueceu a senha?

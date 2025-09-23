@@ -29,7 +29,6 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      // Chamada ao backend que utiliza PuterJS
       const res = await fetch("http://localhost:5000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,6 +47,7 @@ export default function Chatbot() {
       setLoading(false);
     }
   }
+  
 
   function onClickIconToChatBot() {
     setIsOpenChat(!isOpenChat);
