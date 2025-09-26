@@ -1,42 +1,48 @@
-'use client'
+"use client";
 import MaskedInput from "@/components/shared/masked-input";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import React, { useState } from 'react';
-import axios from 'axios'; // Ou use fetch
-import { useRouter } from 'next/navigation'; // Para redirecionar
+import React, { useState } from "react";
+import axios from "axios"; // Ou use fetch
+import type { AxiosError } from "axios";
+import { useRouter } from "next/navigation"; // Para redirecionar
 
 interface SignInUserFormProps {
-  documentId: string
-  setDocumentId: React.Dispatch<React.SetStateAction<string>>
-  password: string
-  setPassword: React.Dispatch<React.SetStateAction<string>>
+  documentId: string;
+  setDocumentId: React.Dispatch<React.SetStateAction<string>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function SignInUserForm({
   documentId,
   setDocumentId,
   password,
-  setPassword
+  setPassword,
 }: SignInUserFormProps) {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        username: documentId.replace(/\D/g, ''), // Enviar CPF/RG sem formatação
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          username: documentId.replace(/\D/g, ""), // Enviar CPF/RG sem formatação
+          password,
+        }
+      );
 
-      localStorage.setItem('token', response.data.token);
-      router.push('/user'); // Redirecionar para a página do usuário após o login
-    } catch (err: any) {
-      console.error('Erro no login:', err.response?.data || err.message);
-      setError(err.response?.data?.msg || 'Erro ao fazer login.');
+      localStorage.setItem("token", response.data.token);
+      router.push("/user"); // Redirecionar após login
+    } catch (err) {
+      const error = err as AxiosError<{ msg?: string }>;
+
+      console.error("Erro no login:", error.response?.data || error.message);
+      setError(error.response?.data?.msg || "Erro ao fazer login.");
     }
   };
 
@@ -48,7 +54,7 @@ export default function SignInUserForm({
           placeholder="CPF/RG"
           mask="999.999.999-99"
           value={documentId}
-          onChange={(e) => setDocumentId(e.target.value ?? '')}
+          onChange={(e) => setDocumentId(e.target.value ?? "")}
         />
         <Input
           name="password"

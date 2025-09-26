@@ -1,56 +1,62 @@
-'use client'
+"use client";
 import Touchable from "@/components/ui/touchable";
 import MaskedInput from "@/components/shared/masked-input";
 import { Input } from "@/components/ui/input";
-import React, { useState } from 'react';
-import axios from 'axios'; // Ou use fetch
+import React, { useState } from "react";
+import axios from "axios"; // Ou use fetch
+import type { AxiosError } from "axios";
 
 export default function SignUpUserForm() {
-  const [username, setUsername] = useState(''); // Assumindo que username será o CPF/RG ou um campo separado
-  const [password, setPassword] = useState('');
-  const [documentId, setDocumentId] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [phone, setPhone] = useState('');
-  const [cep, setCep] = useState('');
-  const [addressNumber, setAddressNumber] = useState('');
-  const [addressComplement, setAddressComplement] = useState('');
-  const [addressStreet, setAddressStreet] = useState('');
-  const [addressNeighborhood, setAddressNeighborhood] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [username, setUsername] = useState(""); // Assumindo que username será o CPF/RG ou um campo separado
+  const [password, setPassword] = useState("");
+  const [documentId, setDocumentId] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cep, setCep] = useState("");
+  const [addressNumber, setAddressNumber] = useState("");
+  const [addressComplement, setAddressComplement] = useState("");
+  const [addressStreet, setAddressStreet] = useState("");
+  const [addressNeighborhood, setAddressNeighborhood] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
-        username: documentId.replace(/\D/g, ''), // Usar CPF/RG como username, remover caracteres não numéricos
-        password,
-        documentId: documentId.replace(/\D/g, ''),
-        dateOfBirth,
-        phone: phone.replace(/\D/g, ''),
-        cep: cep.replace(/\D/g, ''),
-        addressNumber,
-        addressComplement,
-        addressStreet,
-        addressNeighborhood,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          username: documentId.replace(/\D/g, ""), // Usar CPF/RG como username, remover caracteres não numéricos
+          password,
+          documentId: documentId.replace(/\D/g, ""),
+          dateOfBirth,
+          phone: phone.replace(/\D/g, ""),
+          cep: cep.replace(/\D/g, ""),
+          addressNumber,
+          addressComplement,
+          addressStreet,
+          addressNeighborhood,
+        }
+      );
 
       setSuccess(response.data.message);
-      // Limpar formulário ou redirecionar
-      // router.push('/login');
-    } catch (err: any) {
-      console.error('Erro no cadastro:', err.response?.data || err.message);
-      setError(err.response?.data?.message || 'Erro ao registrar usuário.');
-      if (err.response?.data?.errors) {
-        // Exibir erros específicos de validação
-        const errors = err.response.data.errors;
+      
+    } catch (err) {
+      const error = err as AxiosError<{
+        message?: string;
+        errors?: Record<string, string>;
+      }>;
+
+      console.error("Erro no cadastro:", error.response?.data || error.message);
+      setError(error.response?.data?.message || "Erro ao registrar usuário.");
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
         if (errors.username) setError(errors.username);
         if (errors.documentId) setError(errors.documentId);
         if (errors.dateOfBirth) setError(errors.dateOfBirth);
-        // ... outros campos
       }
     }
   };
@@ -63,7 +69,7 @@ export default function SignUpUserForm() {
             placeholder="CPF/RG"
             mask="999.999.999-99"
             value={documentId}
-            onChange={(e) => setDocumentId(e.target.value ?? '')}
+            onChange={(e) => setDocumentId(e.target.value ?? "")}
           />
           <Input
             type="text"
@@ -81,13 +87,13 @@ export default function SignUpUserForm() {
             placeholder="Telefone"
             mask="(99) 99999-9999"
             value={phone}
-            onChange={(e) => setPhone(e.target.value ?? '')}
+            onChange={(e) => setPhone(e.target.value ?? "")}
           />
           <MaskedInput
             placeholder="CEP"
             mask="99999-999"
             value={cep}
-            onChange={(e) => setCep(e.target.value ?? '')}
+            onChange={(e) => setCep(e.target.value ?? "")}
           />
 
           <div className="flex gap-2">
