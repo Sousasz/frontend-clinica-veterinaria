@@ -69,7 +69,7 @@ export default function SignUpUserForm() {
             placeholder="CPF/RG"
             mask="999.999.999-99"
             value={documentId}
-            onChange={(e) => setDocumentId(e.target.value ?? "")}
+            onChange={(e: { target: { value: any; }; }) => setDocumentId(e.target.value ?? "")}
           />
           <Input
             type="text"
@@ -87,13 +87,13 @@ export default function SignUpUserForm() {
             placeholder="Telefone"
             mask="(99) 99999-9999"
             value={phone}
-            onChange={(e) => setPhone(e.target.value ?? "")}
+            onChange={(e: { target: { value: any; }; }) => setPhone(e.target.value ?? "")}
           />
           <MaskedInput
             placeholder="CEP"
             mask="99999-999"
             value={cep}
-            onChange={(e) => setCep(e.target.value ?? "")}
+            onChange={(e: { target: { value: any; }; }) => setCep(e.target.value ?? "")}
           />
 
           <div className="flex gap-2">

@@ -6,7 +6,7 @@ import ChatBotContent from "./chatbot-content";
 import ChatBotResponse from "./chatbot-response";
 import ChatBotUserQuestion from "./chatbot-user-question";
 import ChatBotInput from "./chatbot-input";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Message = {
   role: "user" | "bot";
@@ -19,11 +19,22 @@ export default function Chatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const chatContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContentRef.current) {
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    }
+  }, [messages, loading]);
+
   async function sendMessage(e?: React.FormEvent) {
     e?.preventDefault();
     if (!input.trim()) return;
 
-    const newMessages: Message[] = [...messages, { role: "user", content: input }];
+    const newMessages: Message[] = [
+      ...messages,
+      { role: "user", content: input },
+    ];
     setMessages(newMessages);
     setInput("");
     setLoading(true);
@@ -37,8 +48,16 @@ export default function Chatbot() {
 
       const data = await res.json();
 
-      setMessages([...newMessages, { role: "bot", content: data.reply }]);
+      if (res.ok && data.reply) {
+        setMessages([...newMessages, { role: "bot", content: data.reply }]);
+      } else {
+        setMessages([
+          ...newMessages,
+          { role: "bot", content: "⚠️ Não consegui gerar uma resposta." },
+        ]);
+      }
     } catch (error) {
+      console.error(error);
       setMessages([
         ...newMessages,
         { role: "bot", content: "❌ Ocorreu um erro ao processar sua mensagem." },
@@ -47,7 +66,6 @@ export default function Chatbot() {
       setLoading(false);
     }
   }
-  
 
   function onClickIconToChatBot() {
     setIsOpenChat(!isOpenChat);
@@ -65,7 +83,10 @@ export default function Chatbot() {
             <ChatBotHeader onCloseChatBot={onCloseChatBot} />
 
             <ChatBotContent>
-              <div className="flex flex-col gap-2">
+              <div
+                ref={chatContentRef}
+                className="flex flex-col gap-2 overflow-y-auto h-[22rem]"
+              >
                 {messages.map((msg, index) =>
                   msg.role === "user" ? (
                     <ChatBotUserQuestion key={index}>
@@ -76,9 +97,7 @@ export default function Chatbot() {
                   )
                 )}
 
-                {loading && (
-                  <ChatBotResponse>Digitando...</ChatBotResponse>
-                )}
+                {loading && <ChatBotResponse>Digitando...</ChatBotResponse>}
               </div>
             </ChatBotContent>
 
