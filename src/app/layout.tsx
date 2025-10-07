@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Head from 'next/head'
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Home | Joyce Clínica Veterinária",
-  description: "O melhor serviço veterinário oferecido a seu pet!",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+import RegisterServiceWorker from "@/components/register-service-worker";
 
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
+
+export const metadata: Metadata = {
+  title: "Home | Joyce Clínica Veterinária",
+  description: "O melhor serviço veterinário oferecido a seu pet!",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icons/app-icon-512.png", 
+  },
+  other: {
+    "http-equiv": "Content-Security-Policy",
+    content: "default-src 'self'; img-src 'self' data:;",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -25,16 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={poppins.className} lang="pt-br">
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:;" />
-        <meta name="theme-color" content="#000000" />
-      </Head>   
-      
-      <body className={`antialiased`}>
+      <body className="antialiased">
         <Header />
         {children}
         <Footer />
+        <RegisterServiceWorker />
       </body>
     </html>
   );

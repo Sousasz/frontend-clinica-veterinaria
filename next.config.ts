@@ -1,13 +1,9 @@
+import withPWA from "next-pwa";
+import type { NextConfig } from "next";
+
 const isProd = process.env.NODE_ENV === "production";
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: !isProd,
-  register: true,
-  skipWaiting: true,
-});
-
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -18,6 +14,12 @@ const nextConfig = {
       },
     ],
   },
+  // outras configs do Next
 };
 
-module.exports = withPWA(nextConfig);
+export default withPWA({
+  dest: "public",
+  disable: !isProd,
+  register: true,
+  skipWaiting: true,
+})(nextConfig);

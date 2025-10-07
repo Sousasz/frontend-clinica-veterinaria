@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation"; // Importar useRouter
 export default function UserSignIn() {
   const [documentId, setDocumentId] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error] = useState("");
   const router = useRouter(); // Inicializar useRouter
 
   const handleLogin = async () => {
@@ -29,7 +29,7 @@ export default function UserSignIn() {
       alert("CPF/RG e senha são obrigatórios."); // Ou use um estado de erro para exibir no UI
       return;
     }
-    
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -73,12 +73,16 @@ export default function UserSignIn() {
               Login
             </DialogTitle>
           </DialogHeader>
+          
           <SignInUserForm
             documentId={documentId}
             setDocumentId={setDocumentId}
             password={password}
             setPassword={setPassword}
           />
+
+          {error && <p className="text-red-500 text-center">{error}</p>}
+
           <Touchable onClick={handleLogin}>Entrar</Touchable>{" "}
           {/* onClick direto no botão */}
         </div>

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import axios from "axios"; // Ou use fetch
 import type { AxiosError } from "axios";
+import { InputMaskChangeEvent } from "primereact/inputmask";
 
 export default function SignUpUserForm() {
   const [username, setUsername] = useState(""); // Assumindo que username será o CPF/RG ou um campo separado
@@ -69,31 +70,31 @@ export default function SignUpUserForm() {
             placeholder="CPF/RG"
             mask="999.999.999-99"
             value={documentId}
-            onChange={(e: { target: { value: any; }; }) => setDocumentId(e.target.value ?? "")}
+            onChange={(e: InputMaskChangeEvent) => setDocumentId(e.target.value ?? "")}
           />
           <Input
             type="text"
             placeholder="Nome completo"
             value={username} // Usar para o nome completo, se o username for o CPF/RG
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           />
           <Input
             type="date"
             placeholder="Data de nascimento:"
             value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDateOfBirth(e.target.value)}
           />
           <MaskedInput
             placeholder="Telefone"
             mask="(99) 99999-9999"
             value={phone}
-            onChange={(e: { target: { value: any; }; }) => setPhone(e.target.value ?? "")}
+            onChange={(e: InputMaskChangeEvent) => setPhone(e.target.value ?? "")}
           />
           <MaskedInput
             placeholder="CEP"
             mask="99999-999"
             value={cep}
-            onChange={(e: { target: { value: any; }; }) => setCep(e.target.value ?? "")}
+            onChange={(e: InputMaskChangeEvent) => setCep(e.target.value ?? "")}
           />
 
           <div className="flex gap-2">
@@ -101,13 +102,13 @@ export default function SignUpUserForm() {
               type="text"
               placeholder="Número"
               value={addressNumber}
-              onChange={(e) => setAddressNumber(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressNumber(e.target.value)}
             />
             <Input
               type="text"
               placeholder="Complemento"
               value={addressComplement}
-              onChange={(e) => setAddressComplement(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressComplement(e.target.value)}
             />
           </div>
 
@@ -115,19 +116,19 @@ export default function SignUpUserForm() {
             type="text"
             placeholder="Endereço"
             value={addressStreet}
-            onChange={(e) => setAddressStreet(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressStreet(e.target.value)}
           />
           <Input
             type="text"
             placeholder="Bairro"
             value={addressNeighborhood}
-            onChange={(e) => setAddressNeighborhood(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressNeighborhood(e.target.value)}
           />
           <Input
             type="password"
             placeholder="Senha"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
         </div>
       </div>

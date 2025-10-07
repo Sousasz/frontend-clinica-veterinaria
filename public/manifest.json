@@ -1,11 +1,13 @@
 {
-  "name": "NextPWA",
-  "short_name": "Joyce Clínica Veterinária",
+  "name": "Joyce Clínica Veterinária",
+  "short_name": "JoyceVet",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#317EFB",
-  "description": "PWA App para clínica veterinária",
+  "description": "Aplicativo PWA da Joyce Clínica Veterinária — o melhor serviço veterinário oferecido ao seu pet!",
   "icons": [
     {
       "src": "/icons/app-icon-192.png",
@@ -16,6 +18,12 @@
       "src": "/icons/app-icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/icons/app-icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

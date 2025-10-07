@@ -4,11 +4,7 @@ import { formatToCPF, formatToCEP, formatToPhone } from "brazilian-values";
 import { DialogClose } from "@/components/ui/dialog";
 
 
-type UserDetailsProps = { 
-  mask?: string;
-}
-
-export default function UserDetails({ mask }: UserDetailsProps) {
+export default function UserDetails() {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex justify-center font-poppins">
