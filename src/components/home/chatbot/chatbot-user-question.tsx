@@ -1,8 +1,9 @@
 import avatarImage from "../../../../public/images/avatar.webp";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown"
 
 type ChatBotUserQuestionProps = {
-  children: React.ReactNode;
+  children: string | null | undefined;
 };
 
 export default function ChatBotUserQuestion({ children }: ChatBotUserQuestionProps) {
@@ -11,7 +12,9 @@ export default function ChatBotUserQuestion({ children }: ChatBotUserQuestionPro
       <Image className="size-10" src={avatarImage} alt="Foto do usuário" />
 
       <div className="max-w-[80%] max-h-full bg-green-light border rounded-t-xl rounded-bl-xl p-3 text-start shadow-md">
-        <p className=" break-words overflow-hidden">{children}</p>
+        <div className="prose dark:prose-invert max-w-none">
+          <ReactMarkdown>{children?.replace(/\n(?!\n)/g, '\n\n')}</ReactMarkdown>
+        </div>
       </div>
     </div>
   );
