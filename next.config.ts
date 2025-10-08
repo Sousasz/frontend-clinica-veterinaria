@@ -1,20 +1,18 @@
 import withPWA from "next-pwa";
-import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: "https" as const,
         hostname: "picsum.photos",
         pathname: "/id/237/200/300",
       },
     ],
   },
-  // outras configs do Next
 };
 
 export default withPWA({
