@@ -44,7 +44,6 @@ export default function SignUpUserForm() {
       );
 
       setSuccess(response.data.message);
-      
     } catch (err) {
       const error = err as AxiosError<{
         message?: string;
@@ -63,80 +62,102 @@ export default function SignUpUserForm() {
   };
 
   return (
-    <div className="flex flex-col justify-center w-full gap-8">
-      <div className="flex justify-center">
-        <div className="flex flex-col gap-3 w-full">
-          <MaskedInput
-            placeholder="CPF/RG"
-            mask="999.999.999-99"
-            value={documentId}
-            onChange={(e: InputMaskChangeEvent) => setDocumentId(e.target.value ?? "")}
-          />
-          <Input
-            type="text"
-            placeholder="Nome completo"
-            value={username} // Usar para o nome completo, se o username for o CPF/RG
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
-          />
-          <Input
-            type="date"
-            placeholder="Data de nascimento:"
-            value={dateOfBirth}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDateOfBirth(e.target.value)}
-          />
-          <MaskedInput
-            placeholder="Telefone"
-            mask="(99) 99999-9999"
-            value={phone}
-            onChange={(e: InputMaskChangeEvent) => setPhone(e.target.value ?? "")}
-          />
-          <MaskedInput
-            placeholder="CEP"
-            mask="99999-999"
-            value={cep}
-            onChange={(e: InputMaskChangeEvent) => setCep(e.target.value ?? "")}
-          />
-
-          <div className="flex gap-2">
-            <Input
-              type="text"
-              placeholder="Número"
-              value={addressNumber}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressNumber(e.target.value)}
+    <div className="flex justify-center items-center">
+      <div className="flex flex-col justify-center w-[60%] gap-3 ">
+        <div className="flex justify-center">
+          <div className="flex flex-col gap-3 w-full">
+            <MaskedInput
+              placeholder="CPF/RG"
+              mask="999.999.999-99"
+              value={documentId}
+              onChange={(e: InputMaskChangeEvent) =>
+                setDocumentId(e.target.value ?? "")
+              }
             />
             <Input
               type="text"
-              placeholder="Complemento"
-              value={addressComplement}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressComplement(e.target.value)}
+              placeholder="Nome completo"
+              value={username} // Usar para o nome completo, se o username for o CPF/RG
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUsername(e.target.value)
+              }
+            />
+            <Input
+              type="date"
+              placeholder="Data de nascimento:"
+              value={dateOfBirth}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setDateOfBirth(e.target.value)
+              }
+            />
+            <MaskedInput
+              placeholder="Telefone"
+              mask="(99) 99999-9999"
+              value={phone}
+              onChange={(e: InputMaskChangeEvent) =>
+                setPhone(e.target.value ?? "")
+              }
+            />
+            <MaskedInput
+              placeholder="CEP"
+              mask="99999-999"
+              value={cep}
+              onChange={(e: InputMaskChangeEvent) =>
+                setCep(e.target.value ?? "")
+              }
+            />
+
+            <div className="flex gap-2">
+              <Input
+                type="text"
+                placeholder="Número"
+                value={addressNumber}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAddressNumber(e.target.value)
+                }
+              />
+              <Input
+                type="text"
+                placeholder="Complemento"
+                value={addressComplement}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAddressComplement(e.target.value)
+                }
+              />
+            </div>
+
+            <Input
+              type="text"
+              placeholder="Endereço"
+              value={addressStreet}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAddressStreet(e.target.value)
+              }
+            />
+            <Input
+              type="text"
+              placeholder="Bairro"
+              value={addressNeighborhood}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAddressNeighborhood(e.target.value)
+              }
+            />
+            <Input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
           </div>
-
-          <Input
-            type="text"
-            placeholder="Endereço"
-            value={addressStreet}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressStreet(e.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="Bairro"
-            value={addressNeighborhood}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddressNeighborhood(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-          />
         </div>
+
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        {success && <p className="text-green-500 text-center">{success}</p>}
+
+        <Touchable onClick={handleSubmit}>Concluído</Touchable>
       </div>
-
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      {success && <p className="text-green-500 text-center">{success}</p>}
-
-      <Touchable onClick={handleSubmit}>Concluído</Touchable>
     </div>
   );
 }

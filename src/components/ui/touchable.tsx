@@ -2,7 +2,7 @@ import { ComponentProps, ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const touchableVariants = tv({
-  base: "shadow-default cursor-pointer rounded-full font-poppins",
+  base: "shadow-default cursor-pointer rounded-full font-poppins my-3",
 
   variants: {
     buttonType: {
