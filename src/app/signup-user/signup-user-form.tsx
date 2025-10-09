@@ -28,7 +28,7 @@ export default function SignUpUserForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://backend-clinica-veterinaria.onrender.com/api/auth/register",
         {
           username: documentId.replace(/\D/g, ""), // Usar CPF/RG como username, remover caracteres não numéricos
           password,
