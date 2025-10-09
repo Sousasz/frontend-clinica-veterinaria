@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { FiCalendar } from "react-icons/fi";
 import { ptBR } from "date-fns/locale";
 import { DateRange } from "react-day-picker";
 import { consults } from "@/consts/consults";
@@ -40,7 +40,7 @@ export default function ConsultsFilter() {
               variant="outline"
               className="max-w-72 max-[320px]:w-48 text-left justify-start font-normal"
             >
-              <CalendarIcon className="mr-2 h-4 w-4" />
+              <FiCalendar className="mr-2 h-4 w-4" />
               {dateRange?.from ? (
                 dateRange?.to ? (
                   <>
