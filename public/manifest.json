@@ -1,6 +1,7 @@
 {
-  "name": "Joyce Clínica Veterinária",
+  "name": "Joyce Clínica Veterinária v2",
   "short_name": "JoyceVetv2",
+  "version_name": "2.0.0",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
