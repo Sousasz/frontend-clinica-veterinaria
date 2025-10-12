@@ -111,7 +111,7 @@ export default function Chatbot() {
 
                       <div className="max-w-[80%] bg-white border border-green-light rounded-t-xl rounded-br-xl p-3 text-start shadow-md">
                         <div
-                          className="prose prose-natural max-w-none"
+                          className="chat-reply"
                           dangerouslySetInnerHTML={{ __html: msg.content }}
                         />
                       </div>

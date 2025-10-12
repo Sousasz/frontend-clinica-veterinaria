@@ -1,6 +1,36 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer components {
+  .chat-reply h2 {
+    @apply text-2xl font-semibold text-blue-600 mb-2;
+  }
+
+  .chat-reply h3 {
+    @apply text-xl font-medium text-blue-500 mb-1;
+  }
+
+  .chat-reply p {
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed mb-3;
+  }
+
+  .chat-reply ul {
+    @apply list-disc ml-5 mb-3;
+  }
+
+  .chat-reply li {
+    @apply mb-1;
+  }
+
+  .chat-reply strong {
+    @apply font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  .chat-reply a {
+    @apply text-blue-500 underline hover:text-blue-600;
+  }
+}
+
 
 @theme {
   --font-poppins: 'Poppins', sans-serif;
