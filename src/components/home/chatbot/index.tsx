@@ -8,6 +8,9 @@ import ChatBotUserQuestion from "./chatbot-user-question";
 import ChatBotInput from "./chatbot-input";
 import { useState, useRef, useEffect } from "react";
 
+import pingoImage from "../../../../public/images/pingo.webp";
+import Image from "next/image";
+
 type Message = {
   role: "user" | "bot";
   content: string;
@@ -40,11 +43,14 @@ export default function Chatbot() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://backend-clinica-veterinaria.onrender.com/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
+      const res = await fetch(
+        "https://backend-clinica-veterinaria.onrender.com/api/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: input }),
+        }
+      );
 
       const data = await res.json();
 
@@ -60,7 +66,10 @@ export default function Chatbot() {
       console.error(error);
       setMessages([
         ...newMessages,
-        { role: "bot", content: "❌ Ocorreu um erro ao processar sua mensagem." },
+        {
+          role: "bot",
+          content: "❌ Ocorreu um erro ao processar sua mensagem.",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -93,10 +102,17 @@ export default function Chatbot() {
                       {msg.content}
                     </ChatBotUserQuestion>
                   ) : (
-                    <>
-                    {/* <ChatBotResponse  /> */}
-                    <ChatBotResponse key={index}>{msg.content}</ChatBotResponse>
-                    </>
+                    <div key={index} className="flex gap-3 items-end">
+                      <Image
+                        className="size-10"
+                        src={pingoImage}
+                        alt="Imagem do mascote"
+                      />
+
+                      <div className="max-w-[80%] bg-white border border-green-light rounded-t-xl rounded-br-xl p-3 text-start shadow-md">
+                        <div dangerouslySetInnerHTML={{ __html: msg.content }} />
+                      </div>
+                    </div>
                   )
                 )}
 
