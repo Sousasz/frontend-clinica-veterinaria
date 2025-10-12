@@ -93,7 +93,10 @@ export default function Chatbot() {
                       {msg.content}
                     </ChatBotUserQuestion>
                   ) : (
+                    <>
+                    {/* <ChatBotResponse  /> */}
                     <ChatBotResponse key={index}>{msg.content}</ChatBotResponse>
+                    </>
                   )
                 )}
 

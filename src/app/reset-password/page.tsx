@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import petIconImage from "../../../public/images/pet-icon.webp";
 import MaskedInput from "@/components/shared/masked-input";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Touchable from "@/components/ui/touchable";
 import InputOTPValidation from "@/components/ui/input-otp-validation";
@@ -31,15 +34,31 @@ export default function ResetPassword() {
           </h2>
         </div>
 
-        <form className="flex flex-col gap-8 m-5">
+        <form className="flex flex-col gap-8 m-2">
           {isTelephoneOnDatabase ? (
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col justify-center items-center gap-4">
               <p>
                 Enviamos um código SMS para o telefone (xx) xxxxx-xxxx.
                 Verifique seu dispositivo
               </p>
-              <InputOTPValidation />
-              <Touchable onClick={verifyCodeOnSMS}>Enviar código</Touchable>
+              {isCodeCheck ? (
+                <>
+                  <Input type="password" placeholder="Adicionar nova senha" />
+                  <Input type="password" placeholder="Confirmar senha" />
+                  <Touchable>Redefinir</Touchable>
+                </>
+              ) : (
+                <>
+                  <InputOTPValidation />
+                  <Touchable onClick={verifyCodeOnSMS}>Enviar código</Touchable>
+                  <button
+                    onClick={() => setIsTelephoneOnDatabase(false)}
+                    className="underline cursor-pointer"
+                  >
+                    Voltar
+                  </button>
+                </>
+              )}
             </div>
           ) : (
             <div className="flex flex-col gap-5">
@@ -51,13 +70,6 @@ export default function ResetPassword() {
               <Touchable onClick={verifyTelephone}>Enviar telefone</Touchable>
             </div>
           )}
-
-          <button
-            onClick={() => setIsTelephoneOnDatabase(false)}
-            className="underline cursor-pointer"
-          >
-            Voltar
-          </button>
         </form>
       </div>
     </div>
