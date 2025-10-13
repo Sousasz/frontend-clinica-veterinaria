@@ -5,7 +5,12 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 
-export default function InputOTPValidation() {
+interface InputOTPValidationProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export default function InputOTPValidation({ value, onChange }: InputOTPValidationProps) {
   return (
     <InputOTP maxLength={6}>
       <InputOTPGroup>
