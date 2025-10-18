@@ -1,142 +1,82 @@
+// ResetPassword.js (ex: app/reset-password/page.js)
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Para redirecionar após sucesso (App Router) ou use 'next/router' para Pages Router
+import { useRouter } from "next/navigation";
 import petIconImage from "../../../public/images/pet-icon.webp";
-import MaskedInput from "@/components/shared/masked-input";
 import { Input } from "@/components/ui/input";
 import Touchable from "@/components/ui/touchable";
-import InputOTPValidation from "@/components/ui/input-otp-validation"; // Assuma que isso captura o OTP como string
+import InputOTPValidation from "@/components/ui/input-otp-validation"; // Para capturar OTP
 
 export default function ResetPassword() {
-  const [isTelephoneOnDatabase, setIsTelephoneOnDatabase] = useState(false);
-  const [isCodeCheck, setIsCodeCheck] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState(""); // Para o InputOTPValidation (6 dígitos)
+  const [step, setStep] = useState(1); // 1: Identificador, 2: OTP, 3: Nova Senha
+  const [identifier, setIdentifier] = useState(""); // Username ou telefone
+  const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const router = useRouter();
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null; // Pega token do localStorage
 
-  // Se não há token (usuário não logado), redirecione para login
-  if (!token) {
-    router.push("/signup-user");  
-    return null;
-  }
+  const API_BASE = process.env.NODE_ENV === "development"
+    ? "http://localhost:5000/api/auth"
+    : "https://backend-clinica-veterinaria.onrender.com/api/auth";
 
-  const API_BASE = process.env.NODE_ENV === "development" 
-    ? "http://localhost:5000/api/auth" 
-    : "https://backend-clinica-veterinaria.onrender.com/api/auth"; // Ajuste conforme seu env
-
-  async function verifyTelephone() {
-    if (!phone) {
-      setError("Digite o telefone.");
+  async function handleForgotPassword() {
+    if (!identifier) {
+      setError("Digite o username ou telefone.");
       return;
     }
     setLoading(true);
     setError("");
-    setSuccess("");
-
     try {
-      const headers: HeadersInit = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers["x-auth-token"] = token;
-      }
-      const res = await fetch(`${API_BASE}/verify-phone`, {
+      const res = await fetch(`${API_BASE}/forgot-password`, {
         method: "POST",
-        headers,
-        body: JSON.stringify({ phone }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier }),
       });
-
       const data = await res.json();
       if (res.ok) {
-        setIsTelephoneOnDatabase(true);
         setSuccess(data.msg);
-        // Envia OTP automaticamente após verificar telefone (para fluidez no UX)
-        await sendOTP();
+        setStep(2); // Vai para etapa de OTP
       } else {
-        setError(data.msg || "Erro ao verificar telefone.");
+        setError(data.msg);
       }
     } catch (err) {
-      setError("Erro de conexão. Tente novamente.");
+      setError("Erro de conexão.");
     }
     setLoading(false);
   }
 
-  async function sendOTP() {
-    setLoading(true);
-    try {
-      const headers: HeadersInit = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers["x-auth-token"] = token;
-      }
-      const res = await fetch(`${API_BASE}/send-otp`, {
-        method: "POST",
-        headers,
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setSuccess(data.msg);
-      } else {
-        setError(data.msg || "Erro ao enviar OTP.");
-        // Se falhar, volta para tela de telefone
-        setIsTelephoneOnDatabase(false);
-      }
-    } catch (err) {
-      setError("Erro de conexão. Tente novamente.");
-      setIsTelephoneOnDatabase(false);
-    }
-    setLoading(false);
-  }
-
-  async function verifyCodeOnSMS() {
+  async function handleVerifyOTP() {
     if (!otp || otp.length !== 6) {
       setError("Digite o código OTP completo (6 dígitos).");
       return;
     }
     setLoading(true);
     setError("");
-    setSuccess("");
-
     try {
-      const headers: HeadersInit = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers["x-auth-token"] = token;
-      }
       const res = await fetch(`${API_BASE}/verify-otp`, {
         method: "POST",
-        headers,
-        body: JSON.stringify({ otp }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier, otp }),
       });
-
       const data = await res.json();
       if (res.ok) {
-        setIsCodeCheck(true);
         setSuccess(data.msg);
+        setStep(3); // Vai para etapa de nova senha
       } else {
-        setError(data.msg || "Código inválido ou expirado.");
-        // Limpa OTP para nova tentativa
-        setOtp("");
+        setError(data.msg);
       }
     } catch (err) {
-      setError("Erro de conexão. Tente novamente.");
+      setError("Erro de conexão.");
     }
     setLoading(false);
   }
 
-  async function resetPassword() {
+  async function handleResetPassword() {
     if (newPassword !== confirmPassword) {
       setError("Senhas não coincidem.");
       return;
@@ -147,128 +87,59 @@ export default function ResetPassword() {
     }
     setLoading(true);
     setError("");
-    setSuccess("");
-
     try {
-      const headers: HeadersInit = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers["x-auth-token"] = token;
-      }
       const res = await fetch(`${API_BASE}/reset-password`, {
         method: "POST",
-        headers,
-        body: JSON.stringify({ newPassword }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: "tempUserId" }), // Substitua por userId real se necessário, mas vem do verify-otp
+        // Na prática, o frontend pode armazenar userId da resposta de verify-otp
       });
-
       const data = await res.json();
       if (res.ok) {
         setSuccess(data.msg);
-        // Remove token para forçar novo login (segurança)
-        localStorage.removeItem("token");
-        // Redireciona para login após 2s
         setTimeout(() => router.push("/login"), 2000);
       } else {
-        setError(data.msg || "Erro ao redefinir senha.");
+        setError(data.msg);
       }
     } catch (err) {
-      setError("Erro de conexão. Tente novamente.");
+      setError("Erro de conexão.");
     }
     setLoading(false);
   }
 
-  // Função para reenviar OTP (opcional, adicione um botão se quiser)
-  async function resendOTP() {
-    setOtp("");
-    await sendOTP();
-  }
-
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen bg-green-light bg-cover bg-center bg-no-repeat bg-[url('/images/background-image.webp')] gap-5">
-      <Image
-        src={petIconImage}
-        alt="Ícone de um cachorro - marca da clínica veterinária"
-      />
-
+      <Image src={petIconImage} alt="Ícone de um cachorro" />
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3">
-          <h2 className="font-semibold text-3xl text-center">
-            Redefinir senha
-          </h2>
-        </div>
+        <h2 className="font-semibold text-3xl text-center">Redefinir Senha</h2>
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+        {loading && <p>Carregando...</p>}
 
-        <form className="flex flex-col gap-8 m-2">
-          {error && <p className="text-red-500 text-center p-2 bg-red-100 rounded">{error}</p>}
-          {success && <p className="text-green-500 text-center p-2 bg-green-100 rounded">{success}</p>}
-          {loading && <p className="text-blue-500 text-center">Carregando...</p>}
+        {step === 1 && (
+          <div className="flex flex-col gap-5">
+            <p>Insira seu username ou telefone para receber o código.</p>
+            <Input placeholder="Username ou Telefone" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+            <Touchable onClick={handleForgotPassword}>Enviar Código</Touchable>
+          </div>
+        )}
 
-          {isTelephoneOnDatabase ? (
-            <div className="flex flex-col justify-center items-center gap-4">
-              <p>
-                Enviamos um código SMS para o telefone ({phone}). Verifique seu dispositivo.
-              </p>
-              {isCodeCheck ? (
-                <>
-                  <Input
-                    type="password"
-                    placeholder="Adicionar nova senha"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <Input
-                    type="password"
-                    placeholder="Confirmar senha"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <Touchable onClick={resetPassword} disabled={loading}>
-                    {loading ? "Processando..." : "Redefinir"}
-                  </Touchable>
-                </>
-              ) : (
-                <>
-                  <InputOTPValidation
-                    value={otp}
-                    onChange={(value) => setOtp(value)} // Assuma que o componente passa o OTP como string
-                  />
-                  <Touchable onClick={verifyCodeOnSMS} disabled={loading || otp.length !== 6}>
-                    {loading ? "Verificando..." : "Enviar código"}
-                  </Touchable>
-                  <Touchable onClick={resendOTP} disabled={loading}>
-                    Reenviar código
-                  </Touchable>
-                  <button
-                    onClick={() => {
-                      setIsTelephoneOnDatabase(false);
-                      setOtp("");
-                      setError("");
-                      setSuccess("");
-                    }}
-                    className="underline cursor-pointer text-sm"
-                  >
-                    Voltar
-                  </button>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-5">
-              <p>
-                Adicione o seu telefone para enviarmos um código de redefinição de senha.
-              </p>
-              <MaskedInput
-                placeholder="Telefone"
-                mask="(99) 99999-9999"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value ?? "")} // Extrai o valor do evento, garante string
-              />
-              <Touchable onClick={verifyTelephone} disabled={loading || !phone}>
-                {loading ? "Verificando..." : "Enviar telefone"}
-              </Touchable>
-            </div>
-          )}
-        </form>
+        {step === 2 && (
+          <div className="flex flex-col gap-5">
+            <p>Insira o código OTP recebido.</p>
+            <InputOTPValidation value={otp} onChange={(value) => setOtp(value)} />
+            <Touchable onClick={handleVerifyOTP}>Verificar Código</Touchable>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="flex flex-col gap-5">
+            <p>Defina uma nova senha.</p>
+            <Input type="password" placeholder="Nova Senha" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            <Input type="password" placeholder="Confirmar Senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <Touchable onClick={handleResetPassword}>Redefinir Senha</Touchable>
+          </div>
+        )}
       </div>
     </div>
   );
