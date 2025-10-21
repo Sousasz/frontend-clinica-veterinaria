@@ -101,7 +101,7 @@ export default function ResetPassword() {
       const data = await res.json();
       if (res.ok) {
         setSuccess(data.msg);
-        setTimeout(() => router.push("/login"), 2000);
+        setTimeout(() => router.push("/user-signup"), 2000);
       } else {
         setError(data.msg);
       }

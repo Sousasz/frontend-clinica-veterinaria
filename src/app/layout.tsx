@@ -4,6 +4,7 @@ import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import "./globals.css";
 import RegisterServiceWorker from "@/components/register-service-worker";
+import { AuthProvider } from "@/contexts/auth-context";
 
 const poppins = Poppins({
   weight: "400",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
-    apple: "/icons/app-icon-512.png", 
+    apple: "/icons/app-icon-512.png",
   },
   other: {
     "http-equiv": "Content-Security-Policy",
@@ -30,13 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={poppins.className} lang="pt-br">
-      <body className="antialiased">
-        <Header />
-        {children}
-        <Footer />
-        <RegisterServiceWorker />
-      </body>
-    </html>
+    <AuthProvider>
+      <html className={poppins.className} lang="pt-br">
+        <body className="antialiased">
+          <Header />
+          {children}
+          <Footer />
+          <RegisterServiceWorker />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

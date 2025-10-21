@@ -6,6 +6,7 @@ import logo from "@/assets/logo.webp";
 import Image from "next/image";
 import UserSignIn from "@/modals/user-signin";
 import Link from "next/link";
+import { useAuth } from "@/contexts/auth-context";
 
 import { useState } from "react";
 
@@ -16,11 +17,18 @@ export default function Header() {
     setIsOpenMenu(!isOpenMenu);
   }
 
+  const { user } = useAuth();
+
   return (
     <>
       <header className="flex justify-between items-center py-5 px-10 ">
         <div className="flex justify-center items-center gap-10">
-          <Image priority className="w-20" src={logo} alt="Logo da clínica - Cachorro" />
+          <Image
+            priority
+            className="w-20"
+            src={logo}
+            alt="Logo da clínica - Cachorro"
+          />
           <nav className="hidden xl:block">
             <ul className="flex gap-10">
               <li>
@@ -44,7 +52,7 @@ export default function Header() {
               </li>
 
               <li>
-                <Link href="/admin">Admin</Link>
+                {user?.role === "admin" && <Link href="/admin">Admin</Link>}
               </li>
             </ul>
           </nav>
@@ -87,7 +95,7 @@ export default function Header() {
                   </li>
 
                   <li>
-                    <Link href="/admin">Admin</Link>
+                    {user?.role === "admin" && <Link href="/admin">Admin</Link>}
                   </li>
                 </ul>
               </div>
