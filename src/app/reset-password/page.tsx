@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import petIconImage from "../../../public/images/pet-icon.webp";
 import { Input } from "@/components/ui/input";
 import Touchable from "@/components/ui/touchable";
-import InputOTPValidation from "@/components/ui/input-otp-validation"; // Para capturar OTP
+import InputOTPValidation from "@/components/ui/input-otp-validation"; 
 
 export default function ResetPassword() {
-  const [step, setStep] = useState(1); // 1: Identificador, 2: OTP, 3: Nova Senha
-  const [identifier, setIdentifier] = useState(""); // Username ou telefone
+  const [step, setStep] = useState(1);
+  const [identifier, setIdentifier] = useState(""); 
   const [otp, setOtp] = useState("");
+  const [userId, setUserId] = useState(""); 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ export default function ResetPassword() {
     }
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       const res = await fetch(`${API_BASE}/forgot-password`, {
         method: "POST",
@@ -51,12 +53,13 @@ export default function ResetPassword() {
   }
 
   async function handleVerifyOTP() {
-    if (!otp || otp.length !== 6) {
+    if (!otp) { // Remova a verificação de length se onComplete garantir 6 dígitos
       setError("Digite o código OTP completo (6 dígitos).");
       return;
     }
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       const res = await fetch(`${API_BASE}/verify-otp`, {
         method: "POST",
@@ -66,6 +69,7 @@ export default function ResetPassword() {
       const data = await res.json();
       if (res.ok) {
         setSuccess(data.msg);
+        setUserId(data.userId); // Armazena o userId retornado
         setStep(3); // Vai para etapa de nova senha
       } else {
         setError(data.msg);
@@ -87,12 +91,12 @@ export default function ResetPassword() {
     }
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       const res = await fetch(`${API_BASE}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: "tempUserId" }), // Substitua por userId real se necessário, mas vem do verify-otp
-        // Na prática, o frontend pode armazenar userId da resposta de verify-otp
+        body: JSON.stringify({ userId, newPassword }), // Usa o userId armazenado
       });
       const data = await res.json();
       if (res.ok) {
@@ -127,7 +131,7 @@ export default function ResetPassword() {
         {step === 2 && (
           <div className="flex flex-col gap-5">
             <p>Insira o código OTP recebido.</p>
-            <InputOTPValidation value={otp} onChange={(value) => setOtp(value)} />
+            <InputOTPValidation value={otp} onChange={setOtp} /> {/* Passa setOtp diretamente */}
             <Touchable onClick={handleVerifyOTP}>Verificar Código</Touchable>
           </div>
         )}

@@ -1,3 +1,4 @@
+// InputOTPValidation
 import {
   InputOTP,
   InputOTPGroup,
@@ -12,7 +13,7 @@ interface InputOTPValidationProps {
 
 export default function InputOTPValidation({ value, onChange }: InputOTPValidationProps) {
   return (
-    <InputOTP maxLength={6}>
+    <InputOTP maxLength={6} value={value} onChange={onChange}>
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
