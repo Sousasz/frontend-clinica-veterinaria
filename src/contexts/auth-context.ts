@@ -24,14 +24,11 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decoded: User = jwtDecode(token);
+    if (typeof window !== 'undefined') { 
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decoded = jwtDecode<User>(token);
         setUser(decoded);
-      } catch (error) {
-        console.error('Token inválido');
-        localStorage.removeItem('token');
       }
     }
   }, []);
