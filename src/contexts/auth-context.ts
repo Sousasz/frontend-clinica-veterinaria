@@ -1,5 +1,7 @@
+'use client'
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { jwtDecode } from 'jwt-decode'; // Instale via npm: npm install jwt-decode
+import { jwtDecode } from 'jwt-decode'; 
 
 interface User {
   id: string;
