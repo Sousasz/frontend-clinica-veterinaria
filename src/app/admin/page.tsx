@@ -1,3 +1,5 @@
+'use client'
+
 import Title from "@/components/ui/title";
 import ConsultsBooked from "./consults/consults-booked";
 import ButtonDialog from "@/components/ui/button-dialog";
