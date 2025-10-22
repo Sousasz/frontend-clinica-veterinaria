@@ -1,30 +1,38 @@
-  'use client'
-  
-  import { useAuth } from '../contexts/auth-context';
-  import { useRouter } from 'next/router';
-  import { useEffect, ReactNode } from 'react';
+"use client";
 
-  interface ProtectedRouteProps {
-    children: ReactNode;
-    requiredRole?: 'admin' | 'user';
+import { useAuth } from "../contexts/auth-context";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, ReactNode } from "react";
+
+interface ProtectedRouteProps {
+  children: ReactNode;
+  requiredRole?: "admin" | "user";
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requiredRole = "user",
+}) => {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (isClient && (!user || user.role !== requiredRole)) {
+      router.push("/");
+    }
+  }, [user, requiredRole, router, isClient]);
+
+  if (!isClient || !user) {
+    return <div>Carregando...</div>;
   }
 
-  const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole = 'user' }) => {
-    const { user } = useAuth();
-    const router = useRouter();
+  if (user.role !== requiredRole) {
+    return null;
+  }
 
-    useEffect(() => {
-      if (!user || user.role !== requiredRole) {
-        router.push('/user-signup');
-      }
-    }, [user, requiredRole, router]);
+  return <>{children}</>;
+};
 
-    if (!user || user.role !== requiredRole) {
-      return <div>Carregando...</div>;
-    }
-
-    return <>{children}</>;
-  };
-
-  export default ProtectedRoute;
-  
+export default ProtectedRoute;
