@@ -1,7 +1,8 @@
+"use client";
+
 import avatarImage from "../../../public/images/avatar.webp";
 import Image from "next/image";
 import Touchable from "@/components/ui/touchable";
-
 import {
   Dialog,
   DialogContent,
@@ -9,24 +10,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-// ... imports existentes
 import SignInUserForm from "./signin-user-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import type { AxiosError } from "axios";
-import { useRouter } from "next/navigation"; // Importar useRouter
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function UserSignIn() {
   const [documentId, setDocumentId] = useState("");
   const [password, setPassword] = useState("");
   const [error] = useState("");
-  const router = useRouter(); // Inicializar useRouter
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("openLogin") === "true") {
+      setOpen(true);
+    }
+  }, [searchParams]);
 
   const handleLogin = async () => {
-    // Sem parâmetro e.preventDefault(), pois não é form
     if (!documentId.trim() || !password.trim()) {
-      alert("CPF/RG e senha são obrigatórios."); // Ou use um estado de erro para exibir no UI
+      alert("CPF/RG e senha são obrigatórios.");
       return;
     }
 
@@ -34,18 +40,17 @@ export default function UserSignIn() {
       const response = await axios.post(
         "https://backend-clinica-veterinaria.onrender.com/api/auth/login",
         {
-          username: documentId.replace(/\D/g, ""), // Remove formatação do CPF/RG
+          username: documentId.replace(/\D/g, ""),
           password,
         }
       );
 
-      // Sucesso: Armazena token e redireciona
       localStorage.setItem("token", response.data.token);
       alert("Login realizado com sucesso!");
-      router.push("/user"); // Redireciona para o dashboard
+      setOpen(false);
+      router.push("/user");
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
-
       console.error("Erro no login:", error.response?.data || error.message);
       alert(
         error.response?.data?.message ||
@@ -55,8 +60,7 @@ export default function UserSignIn() {
   };
 
   return (
-    <Dialog>
-      {/* Sem <form> aqui */}
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="cursor-pointer">
           <Image
@@ -73,7 +77,7 @@ export default function UserSignIn() {
               Login
             </DialogTitle>
           </DialogHeader>
-          
+
           <SignInUserForm
             documentId={documentId}
             setDocumentId={setDocumentId}
@@ -83,8 +87,7 @@ export default function UserSignIn() {
 
           {error && <p className="text-red-500 text-center">{error}</p>}
 
-          <Touchable onClick={handleLogin}>Entrar</Touchable>{" "}
-          {/* onClick direto no botão */}
+          <Touchable onClick={handleLogin}>Entrar</Touchable>
         </div>
       </DialogContent>
     </Dialog>

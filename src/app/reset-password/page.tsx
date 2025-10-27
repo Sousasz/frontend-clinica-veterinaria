@@ -1,4 +1,3 @@
-// ResetPassword.js (ex: app/reset-password/page.js)
 "use client";
 
 import Image from "next/image";
@@ -7,13 +6,13 @@ import { useRouter } from "next/navigation";
 import petIconImage from "../../../public/images/pet-icon.webp";
 import { Input } from "@/components/ui/input";
 import Touchable from "@/components/ui/touchable";
-import InputOTPValidation from "@/components/ui/input-otp-validation"; 
+import InputOTPValidation from "@/components/ui/input-otp-validation";
 
 export default function ResetPassword() {
   const [step, setStep] = useState(1);
-  const [identifier, setIdentifier] = useState(""); 
+  const [identifier, setIdentifier] = useState("");
   const [otp, setOtp] = useState("");
-  const [userId, setUserId] = useState(""); 
+  const [userId, setUserId] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,9 +20,10 @@ export default function ResetPassword() {
   const [success, setSuccess] = useState("");
   const router = useRouter();
 
-  const API_BASE = process.env.NODE_ENV === "development"
-    ? "http://localhost:5000/api/auth"
-    : "https://backend-clinica-veterinaria.onrender.com/api/auth";
+  const API_BASE =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000/api/auth"
+      : "https://backend-clinica-veterinaria.onrender.com/api/auth";
 
   async function handleForgotPassword() {
     if (!identifier) {
@@ -53,7 +53,7 @@ export default function ResetPassword() {
   }
 
   async function handleVerifyOTP() {
-    if (!otp) { // Remova a verificação de length se onComplete garantir 6 dígitos
+    if (!otp) {
       setError("Digite o código OTP completo (6 dígitos).");
       return;
     }
@@ -96,12 +96,12 @@ export default function ResetPassword() {
       const res = await fetch(`${API_BASE}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, newPassword }), // Usa o userId armazenado
+        body: JSON.stringify({ userId, newPassword }),
       });
       const data = await res.json();
       if (res.ok) {
         setSuccess(data.msg);
-        setTimeout(() => router.push("/user-signup"), 2000);
+        setTimeout(() => router.push("/?openLogin=true"), 2000);
       } else {
         setError(data.msg);
       }
@@ -123,7 +123,11 @@ export default function ResetPassword() {
         {step === 1 && (
           <div className="flex flex-col gap-5">
             <p>Insira seu username ou telefone para receber o código.</p>
-            <Input placeholder="Username ou Telefone" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+            <Input
+              placeholder="Username ou Telefone"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+            />
             <Touchable onClick={handleForgotPassword}>Enviar Código</Touchable>
           </div>
         )}
@@ -131,7 +135,8 @@ export default function ResetPassword() {
         {step === 2 && (
           <div className="flex flex-col gap-5">
             <p>Insira o código OTP recebido.</p>
-            <InputOTPValidation value={otp} onChange={setOtp} /> {/* Passa setOtp diretamente */}
+            <InputOTPValidation value={otp} onChange={setOtp} />{" "}
+            {/* Passa setOtp diretamente */}
             <Touchable onClick={handleVerifyOTP}>Verificar Código</Touchable>
           </div>
         )}
@@ -139,8 +144,18 @@ export default function ResetPassword() {
         {step === 3 && (
           <div className="flex flex-col gap-5">
             <p>Defina uma nova senha.</p>
-            <Input type="password" placeholder="Nova Senha" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-            <Input type="password" placeholder="Confirmar Senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <Input
+              type="password"
+              placeholder="Nova Senha"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Confirmar Senha"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
             <Touchable onClick={handleResetPassword}>Redefinir Senha</Touchable>
           </div>
         )}
