@@ -11,12 +11,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import SignInUserForm from "./signin-user-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function UserSignIn() {
+function UserSignInContent() {
   const [documentId, setDocumentId] = useState("");
   const [password, setPassword] = useState("");
   const [error] = useState("");
@@ -91,5 +91,15 @@ export default function UserSignIn() {
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export default function UserSignIn() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      {" "}
+      {/* Fallback simples */}
+      <UserSignInContent />
+    </Suspense>
   );
 }
