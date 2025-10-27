@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, createContext, useState, useEffect } from 'react';
+import { ReactNode, createContext, useState, useEffect, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 type JwtPayload = Record<string, unknown>;
@@ -35,3 +35,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     </AuthContext.Provider>
   );
 };
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+
+  if(!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context
+}
