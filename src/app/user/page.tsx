@@ -3,12 +3,22 @@ import EditUser from "@/modals/edit-user";
 import EditPet from "@/modals/edit-pet";
 import ActionButton from "@/components/shared/action-button";
 import UserConsults from "@/app/user/user-consults";
+import { useRouter } from "next/navigation"; // Para redirecionamento
+import { useAuth } from "@/contexts/auth-context"; // Para acessar o contexto de autenticação
 
 export const metadata = {
   title: "Usuário | Joyce Clínica Veterinária",
 };
 
 export default function Users() {
+  const router = useRouter();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
+
   return (
     <section className="w-full h-full font-poppins">
       <div className="flex flex-col max-w-screen mx-14 my-10 gap-14">
@@ -23,7 +33,7 @@ export default function Users() {
               <span>Excluir conta</span>
             </ActionButton>
 
-            <ActionButton>
+            <ActionButton onClick={handleLogout}>
               <span>Sair da conta</span>
             </ActionButton>
           </div>

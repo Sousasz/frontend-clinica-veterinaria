@@ -8,6 +8,7 @@ type JwtPayload = Record<string, unknown>;
 type AuthContextType = {
   user: JwtPayload | null;
   setUser: React.Dispatch<React.SetStateAction<JwtPayload | null>>;
+  logout: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,8 +30,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null); 
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );
