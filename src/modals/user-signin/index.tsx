@@ -15,6 +15,7 @@ import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context"; // Importe o contexto de autenticação
 
 function UserSignInContent() {
   const [documentId, setDocumentId] = useState("");
@@ -23,6 +24,7 @@ function UserSignInContent() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { user } = useAuth(); // Obtém o usuário do contexto
 
   useEffect(() => {
     if (searchParams.get("openLogin") === "true") {
@@ -58,6 +60,22 @@ function UserSignInContent() {
       );
     }
   };
+
+  if (user) {
+    return (
+      <button
+        onClick={() => router.push("/user")}
+        className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+      >
+        <span className="text-sm font-medium">Olá, {user.name ? String(user.name) : "Usuário"}</span> {/* Ajuste se o campo for diferente, ex.: user.fullName */}
+        <Image
+          className="size-10"
+          src={avatarImage}
+          alt="Imagem do usuário"
+        />
+      </button>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -97,9 +115,8 @@ function UserSignInContent() {
 export default function UserSignIn() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      {" "}
-      {/* Fallback simples */}
       <UserSignInContent />
     </Suspense>
   );
 }
+
