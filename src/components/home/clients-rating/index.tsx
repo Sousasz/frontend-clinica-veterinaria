@@ -11,7 +11,7 @@ import RatingsModal from "@/modals/ratings";
 
 export default function ClientsRating() {
   return (
-    <section className="flex flex-col justify-center gap-5">
+    <section className="flex flex-col justify-center gap-5" id="rating">
       <div className="flex gap-4">
         <Image
           className="h-min w-28 rounded-full"

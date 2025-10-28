@@ -5,8 +5,8 @@ import ActionButton from "@/components/shared/action-button";
 import UserConsults from "@/app/user/user-consults";
 
 export const metadata = {
-  title: "Usuário | Joyce Clínica Veterinária"
-}
+  title: "Usuário | Joyce Clínica Veterinária",
+};
 
 export default function Users() {
   return (

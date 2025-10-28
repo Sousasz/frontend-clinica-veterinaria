@@ -15,7 +15,8 @@ import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/contexts/auth-context"; // Importe o contexto de autenticação
+import { useAuth } from "@/contexts/auth-context";
+import { Spinner } from "@/components/ui/spinner";
 
 function UserSignInContent() {
   const [documentId, setDocumentId] = useState("");
@@ -24,7 +25,7 @@ function UserSignInContent() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user } = useAuth(); // Obtém o usuário do contexto
+  const { user } = useAuth();
 
   useEffect(() => {
     if (searchParams.get("openLogin") === "true") {
@@ -50,7 +51,7 @@ function UserSignInContent() {
       localStorage.setItem("token", response.data.token);
       alert("Login realizado com sucesso!");
       setOpen(false);
-      router.push("/user");
+      router.refresh();
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
       console.error("Erro no login:", error.response?.data || error.message);
@@ -67,12 +68,10 @@ function UserSignInContent() {
         onClick={() => router.push("/user")}
         className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
       >
-        <span className="text-sm font-medium">Olá, {user.name ? String(user.name) : "Usuário"}</span> {/* Ajuste se o campo for diferente, ex.: user.fullName */}
-        <Image
-          className="size-10"
-          src={avatarImage}
-          alt="Imagem do usuário"
-        />
+        <span className="text-sm font-medium">
+          Olá, {user.username ? String(user.name) : "Usuário"}
+        </span>
+        <Image className="size-10" src={avatarImage} alt="Imagem do usuário" />
       </button>
     );
   }
@@ -104,6 +103,7 @@ function UserSignInContent() {
           />
 
           {error && <p className="text-red-500 text-center">{error}</p>}
+          <Spinner className="bg-green-dark size-6" />
 
           <Touchable onClick={handleLogin}>Entrar</Touchable>
         </div>
@@ -114,9 +114,8 @@ function UserSignInContent() {
 
 export default function UserSignIn() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner className="size-6 bg-green-dark" />}>
       <UserSignInContent />
     </Suspense>
   );
 }
-
