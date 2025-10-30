@@ -69,7 +69,7 @@ function UserSignInContent() {
         className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
       >
         <span className="text-sm font-medium">
-          Olá, {user.username ? String(user.name) : "Usuário"}
+          Olá, {user.username ? String(user.username) : "Usuário"}
         </span>
         <Image className="size-10" src={avatarImage} alt="Imagem do usuário" />
       </button>
@@ -103,7 +103,6 @@ function UserSignInContent() {
           />
 
           {error && <p className="text-red-500 text-center">{error}</p>}
-          <Spinner className="bg-green-dark size-6" />
 
           <Touchable onClick={handleLogin}>Entrar</Touchable>
         </div>
@@ -114,7 +113,7 @@ function UserSignInContent() {
 
 export default function UserSignIn() {
   return (
-    <Suspense fallback={<Spinner className="size-6 bg-green-dark" />}>
+    <Suspense fallback={<Spinner className="size-6 text-green-dark" />}>
       <UserSignInContent />
     </Suspense>
   );
