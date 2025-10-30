@@ -1,10 +1,12 @@
+"use client";
+
 import Title from "@/components/ui/title";
 import EditUser from "@/modals/edit-user";
 import EditPet from "@/modals/edit-pet";
 import ActionButton from "@/components/shared/action-button";
 import UserConsults from "@/app/user/user-consults";
-import { useRouter } from "next/navigation"; // Para redirecionamento
-import { useAuth } from "@/contexts/auth-context"; // Para acessar o contexto de autenticação
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context"; 
 
 export const metadata = {
   title: "Usuário | Joyce Clínica Veterinária",
